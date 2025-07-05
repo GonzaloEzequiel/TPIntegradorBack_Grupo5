@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TP Integrador 334</title>    
+    <link rel="stylesheet" href="../css/estilos.css">
+    <script type="module" src="./productos.js" defer ></script>
+</head>
+<body>
+    <header>
+        <div class="espaciado"></div>
+        <img id="logo" src="../recursos/logo.png" alt="Logo Fulbo$hop"/>
+        <nav id="barra-navegacion">
+            <label class="switch">
+                <input type="checkbox" class="tema" id="tema">
+                <div class="riel"><span class="bola"></span></div>
+                <span class="indicador"><img src="../recursos/temaOscuro.png" alt="temaOscuro" id="indicadorTema"></span>
+            </label>
+            <button class="boton-navegacion" id="boton-productos">Productos</button>
+            <button class="boton-navegacion" id="boton-carrito">Carrito</button>
+            <button class="boton-navegacion" id="boton-ticket">Ticket</button>
+            <button class="boton-navegacion" id="boton-salir">Salir</button>
+        </nav>
+    </header>
+
+        <hr>
+        <h1 class="page-title">Eliminar Producto</h1>
+        <hr>
+
+        <main id="product-container">
+
+            <div id="get-product-container" class="form-container">
+                <h3 class="form-title">Obtener Producto por ID</h3>
+
+                <form id="get-product-form" autocomplete="off">
+                    <label for="product-id">ID Producto</label>
+                    <input type="number" name="product-id" class="form-component" id="product-id-inpu" required>
+                    <input type="submit" class="form-component" value="Obtener Producto">
+                </form>                
+
+            </div>
+
+            <br>
+
+            <div id="product-container">
+                <ul id="product-list">
+                </ul>
+            </div>
+
+            <br>
+
+        </main>
+
+        <footer>
+            <div id="datos-alumnos">
+                <p>Pérez, Gonzalo Ezequiel - Guillen, Ignacio</p>
+            </div>
+        </footer>
+
+        <script>
+
+            let get_product_form = document.getElementById("get-product-form");
+            let delete_product_container = document.getElementById("delete-product-container");
+            let product_list = document.getElementById("product-list");
+
+            get_product_form.addEventListener("submit", async (event) => {
+
+                event.preventDefault();
+
+                try {
+
+                    product_list.innerHTML = "<p>Cargando producto...</p>";
+
+                    let formData = new FormData(event.target); 
+                    let data = Object.fromEntries(formData.entries());
+
+                    let idProd = data["product-id"].trim();
+
+                    if(!idProd) {
+                        throw new Error(`Error en el envio de datos del formulario.`);
+                    }
+
+                    let response = await fetch(`http://localhost:3000/products/${idProd}`);
+                    
+                    if(!response.ok) {
+                        throw new Error(`Error ${response.status}: ${response.statusText}`);
+                    }
+
+                    let datos = await response.json();
+
+                    if(!datos.payload || datos.payload.length === 0) {
+                        throw new Error("No se encontro el producto solicitado.")
+                    }
+                                        
+                    // let producto = datos.payload[0];
+                    // mostrarProducto(producto);
+
+                    let producto = datos.payload[0];
+
+                    let HTMLProducto = `
+                        <li class="li-listados productos-listados">
+                            <img src="${producto.image}" alt="${producto.nombre}" class="img-listados">
+                            <p>Id: ${producto.id} / ${producto.product_type} ${producto.desc_text} N°${producto.desc_number} / <strong>Precio: $${producto.price}</strong></p>
+                            <input type="button" class="listados-boton" id="delete-product-btn" value="Eliminar producto">
+                        </li>
+                    `;
+                    product_list.innerHTML = HTMLProducto;
+
+                    let deleteProduct_btn = document.getElementById("delete-product-btn");
+                    deleteProduct_btn.addEventListener("click", (event) => {                        
+                        event.stopPropagation();
+
+                        let confirmation = confirm("¿Quiere eliminar este producto?");
+
+                        if(!confirmation) {
+                            alert("Acción cancelada.");
+                        } else {
+                            eliminarProducto(idProd);
+                        }
+                    });
+                    
+
+                } catch (error) {
+
+                    console.error("Error al obtener el producto: ", error);
+                    product_list.innerHTML = `<p>${error.message}</p>`
+
+                }
+
+            });
+            
+            function mostrarProducto(product) {
+                
+                let HTMLProducto = `
+                        <li class="li-listados productos-listados">
+                            <img src="${product.image}" alt="${product.nombre}" class="img-listados">
+                            <p>Id: ${product.id} / ${product.product_type} ${product.desc_text} N°${product.desc_number} / <strong>Precio: $${producto.price}</strong></p>
+                            <input type="button" class="listados-boton" id="delete-product-btn" value="Eliminar producto">
+                        </li>
+                    `;
+
+                product_list.innerHTML = HTMLProducto;
+            }
+
+            async function eliminarProducto(id) {
+
+                try {
+
+                    let response = await fetch(`http://localhost:3000/products/${id}`, {
+                        method: "DELETE"
+                    });
+
+                    let result = await response.json();
+
+                    if(response.ok) {
+
+                        alert(result.message);
+                        product_list.innerHTML = ``;
+                        return true;
+
+                    } else {
+
+                        console.error("Error: ", result.message);
+                        return false;
+
+                    }
+
+                } catch(error) {
+
+                    console.error("Error en la solicitud DELETE: ", error);
+                    alert("Ocurrió un error al eliminar un producto");
+                    return false;
+
+                }
+            }
+
+        </script>
+
+</body>
+</html>
