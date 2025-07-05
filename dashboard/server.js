@@ -1,7 +1,7 @@
-import express, { request, response } from "express";
+import express from "express";
 import cors from "cors";
 import environments from "./src/api/config/environments.js";
-import { porductRoutes, adminRoutes} from "./src/api/routes/index.js";
+import { porductRoutes, adminRoutes } from "./src/api/routes/index.js";
 import { loggerUrl } from "./src/api/middlewares/middlewares.js";
 
 const app = express();
