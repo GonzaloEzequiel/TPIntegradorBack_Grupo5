@@ -64,6 +64,8 @@
 
         <script>
 
+            const baseUrl = "http://localhost:3000/api";
+
             let get_product_form = document.getElementById("get-product-form");
             let edit_product_container = document.getElementById("edit-product-container");
             let product_list = document.getElementById("product-list");
@@ -85,7 +87,7 @@
                         throw new Error(`Error en el envio de datos del formulario.`);
                     }
 
-                    let response = await fetch(`http://localhost:3000/products/${idProd}`);
+                    let response = await fetch(`${baseUrl}/products/${idProd}`);
                     
                     if(!response.ok) {
                         throw new Error(`Error ${response.status}: ${response.statusText}`);
@@ -215,7 +217,7 @@
 
                 try {
 
-                    let response = await fetch(`http://localhost:3000/products/${idProd}`, {
+                    let response = await fetch(`${baseUrl}/products/${idProd}`, {
                         method: "PUT",
                         headers: {
                             "Content-Type" : "application/json"

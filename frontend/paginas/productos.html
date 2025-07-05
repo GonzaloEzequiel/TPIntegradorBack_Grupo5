@@ -42,12 +42,14 @@
         </main>
 
         <script>
+
+            const baseUrl = "http://localhost:3000/api";
             
             async function obtenerDatosProductos() {
 
                 try {
 
-                    let respuesta = await fetch("http://localhost:3000/products");
+                    let respuesta = await fetch(`${baseUrl}/products`);
 
                     let datos = await respuesta.json();
 
