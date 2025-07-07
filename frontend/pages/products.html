@@ -4,23 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TP Integrador 334</title>    
-    <link rel="stylesheet" href="../css/estilos.css">
-    <script type="module" src="./productos.js" defer ></script>
+    <link rel="stylesheet" href="../css/styles.css">
+    <script type="module" src="./products.js" defer ></script>
 </head>
 <body>
+    
     <header>
-        <div class="espaciado"></div>
-        <img id="logo" src="../recursos/logo.png" alt="Logo Fulbo$hop"/>
-        <nav id="barra-navegacion">
+        <div class="spacing"></div>
+        <img id="logo" src="../assets/img/logo.png" alt="Logo Fulbo$hop"/>
+        <nav id="nav-bar">
             <label class="switch">
-                <input type="checkbox" class="tema" id="tema">
-                <div class="riel"><span class="bola"></span></div>
-                <span class="indicador"><img src="../recursos/temaOscuro.png" alt="temaOscuro" id="indicadorTema"></span>
+                <input type="checkbox" class="theme" id="theme-input">
+                <div class="switch-rail"><span class="switch-orb"></span></div>
+                <span class="theme-sign"><img src="" alt="temaOscuro" id="theme-sign"></span>
             </label>
-            <button class="boton-navegacion" id="boton-productos">Productos</button>
-            <button class="boton-navegacion" id="boton-carrito">Carrito</button>
-            <button class="boton-navegacion" id="boton-ticket">Ticket</button>
-            <button class="boton-navegacion" id="boton-salir">Salir</button>
+            <button class="nav-button" id="btn-products">Productos</button>
+            <button class="nav-button" id="btn-new-product">Alta Producto</button>
+            <button class="nav-button" id="btn-edit-product">Modificar Producto</button>
+            <button class="nav-button" id="btn-remove-product">Eliminar Producto</button>
+            <button class="nav-button" id="btn-exit">Salir</button>
         </nav>
     </header>
 
@@ -28,12 +30,12 @@
         <h1 class="page-title">Nuestros Productos</h1>
         <hr>
 
-        <main id="contenedor-get">
-            <div id="productos-container">
-                <ul id="productos-lista">
+        <main id="get-container">
+            <div id="products-container">
+                <ul id="products-list">
                     <!--
-                    <li class="li-listados productos-listados">
-                        <img src="" alt="" class="img-listados">
+                    <li class="product-item">
+                        <img src="" alt="" class="product-img">
                         <p>Id: / Nombre: / <strong>Precio: </strong></p>
                     </li>
                     -->
@@ -44,7 +46,11 @@
         <script>
 
             const baseUrl = "http://localhost:3000/api";
-            
+
+
+            /**
+             * 
+             */
             async function obtenerDatosProductos() {
 
                 try {
@@ -91,15 +97,15 @@
 
                 let listaProductos = array.payload; 
 
-                let productos_lista = document.getElementById("productos-lista");
+                let productos_lista = document.getElementById("products-list");
 
                 let HTMLProducto = "";
 
                 listaProductos.forEach(producto => {
 
                     HTMLProducto += `
-                        <li class="li-listados productos-listados">
-                            <img src="${producto.image}" alt="${producto.nombre}" class="img-listados">
+                        <li class="product-item">
+                            <img src="${producto.image}" alt="${producto.nombre}" class="product-img">
                             <p>Id: ${producto.id} / ${producto.product_type} ${producto.desc_text} N°${producto.desc_number} / <strong>Precio: $${producto.price}</strong></p>
                         </li>
                     `;

@@ -8,19 +8,21 @@
     <script type="module" src="./productos.js" defer ></script>
 </head>
 <body>
+
     <header>
-        <div class="espaciado"></div>
-        <img id="logo" src="../recursos/logo.png" alt="Logo Fulbo$hop"/>
-        <nav id="barra-navegacion">
+        <div class="spacing"></div>
+        <img id="logo" src="./assets/img/logo.png" alt="Logo Fulbo$hop"/>
+        <nav id="nav-bar">
             <label class="switch">
-                <input type="checkbox" class="tema" id="tema">
-                <div class="riel"><span class="bola"></span></div>
-                <span class="indicador"><img src="../recursos/temaOscuro.png" alt="temaOscuro" id="indicadorTema"></span>
+                <input type="checkbox" class="theme" id="theme-input">
+                <div class="switch-rail"><span class="switch-orb"></span></div>
+                <span class="theme-sign"><img src="" alt="temaOscuro" id="theme-sign"></span>
             </label>
-            <button class="boton-navegacion" id="boton-productos">Productos</button>
-            <button class="boton-navegacion" id="boton-carrito">Carrito</button>
-            <button class="boton-navegacion" id="boton-ticket">Ticket</button>
-            <button class="boton-navegacion" id="boton-salir">Salir</button>
+            <button class="nav-button" id="btn-products">Productos</button>
+            <button class="nav-button" id="btn-new-product">Alta Producto</button>
+            <button class="nav-button" id="btn-edit-product">Modificar Producto</button>
+            <button class="nav-button" id="btn-remove-product">Eliminar Producto</button>
+            <button class="nav-button" id="btn-exit">Salir</button>
         </nav>
     </header>
 
@@ -35,7 +37,7 @@
 
                 <form id="get-product-form" autocomplete="off">
                     <label for="product-id">ID Producto</label>
-                    <input type="number" name="product-id" class="form-component" id="product-id-inpu" required>
+                    <input type="number" name="product-id" class="form-component" id="product-id-input" required>
                     <input type="submit" class="form-component" value="Obtener Producto">
                 </form>                
 
@@ -53,7 +55,7 @@
         </main>
 
         <footer>
-            <div id="datos-alumnos">
+            <div id="authors-data">
                 <p>Pérez, Gonzalo Ezequiel - Guillen, Ignacio</p>
             </div>
         </footer>
@@ -101,10 +103,10 @@
                     let producto = datos.payload[0];
 
                     let HTMLProducto = `
-                        <li class="li-listados productos-listados">
-                            <img src="${producto.image}" alt="${producto.nombre}" class="img-listados">
+                        <li class="product-item">
+                            <img src="${producto.image}" alt="${producto.nombre}" class="product-img">
                             <p>Id: ${producto.id} / ${producto.product_type} ${producto.desc_text} N°${producto.desc_number} / <strong>Precio: $${producto.price}</strong></p>
-                            <input type="button" class="listados-boton" id="delete-product-btn" value="Eliminar producto">
+                            <input type="button" class="form-button form-component" id="delete-product-btn" value="Eliminar producto">
                         </li>
                     `;
                     product_list.innerHTML = HTMLProducto;
@@ -135,8 +137,8 @@
             function mostrarProducto(product) {
                 
                 let HTMLProducto = `
-                        <li class="li-listados productos-listados">
-                            <img src="${product.image}" alt="${product.nombre}" class="img-listados">
+                        <li class="product-item">
+                            <img src="${product.image}" alt="${product.nombre}" class="product-img">
                             <p>Id: ${product.id} / ${product.product_type} ${product.desc_text} N°${product.desc_number} / <strong>Precio: $${producto.price}</strong></p>
                             <input type="button" class="listados-boton" id="delete-product-btn" value="Eliminar producto">
                         </li>

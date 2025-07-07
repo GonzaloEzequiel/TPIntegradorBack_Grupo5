@@ -1,17 +1,17 @@
-import { inicializarTema } from  "./src/switchTemas.js";
+import { initlizeTheme } from  "./src/themeSwitch.js";
 
 document.addEventListener("DOMContentLoaded", () => { 
-    inicializarTema();
+    initlizeTheme();
 });
 
-const formCliente = document.getElementById("form-cliente");
+const formCliente = document.getElementById("client-login-form");
 formCliente.addEventListener("submit", event => {
     event.preventDefault();
-    window.location.href = "./paginas/productos.html"
-    sessionStorage.setItem("user", document.getElementById("nombre-cliente").value.trim());
+    window.location.href = "./pages/products.html"
+    sessionStorage.setItem("user", document.getElementById("client-name").value.trim());
 });
 
-const formAdmin = document.getElementById("form-admin");
+const formAdmin = document.getElementById("admin-login-form");
 formAdmin.addEventListener("submit", async event => {
    
     event.preventDefault();
@@ -38,7 +38,7 @@ formAdmin.addEventListener("submit", async event => {
 
             let resultado = await response.json();
             sessionStorage.setItem("user", resultado.admin);
-            window.location.href = "./paginas/dashboard.html"
+            window.location.href = "./pages/dashboard.html"
 
         }
     

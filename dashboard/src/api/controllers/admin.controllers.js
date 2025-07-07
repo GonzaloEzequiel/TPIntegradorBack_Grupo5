@@ -54,7 +54,7 @@ export const adminLogin = async (request, response) => {
 
         //password = cifrado-password
 
-        let [rows] = await logAdmin(email, password);
+        let [rows] = await Admins.logAdmin(email, password);
 
         if(rows.length) {
 
