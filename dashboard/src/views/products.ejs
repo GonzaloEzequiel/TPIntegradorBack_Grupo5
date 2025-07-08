@@ -13,70 +13,13 @@
 
                     <li class="product-item">
                             <img src="<%= prod.image %> " alt="<%= prod.name %>" class="product-img">
-                            <p>Id: <%= prod.id %> / <%= prod.product_type %> <%= prod.desc_text %> N°<%= prod.desc_number %> / <strong>Precio: $<%= prod.price %></strong></p>
+                            <p>ID: <%= prod.id %> / <%= prod.product_type %> <%= prod.quality %> <%= prod.desc_text %> N°<%= prod.desc_number %> / <strong>Precio: $<%= prod.price %></strong><%= prod.active ? " / [Activo]" : " / [Inactivo]" %></p>
                     </li>
 
                 <% }) %>
+
             </ul>
         </div>
     </main>
-
-    <script>
-
-        const baseUrl = "http://localhost:3000/api";
-
-
-        /**
-         * 
-         */
-        async function obtenerDatosProductos() {
-
-            try {
-
-                let respuesta = await fetch(`${baseUrl}/products`);
-
-                let datos = await respuesta.json();
-
-                console.log(datos);
-                console.table(datos.payload);
-
-                mostrarProductos(datos);
-
-            } catch(error) {
-
-                console.log("Error: ", error);
-
-            }
-
-        }
-
-        /**
-         * 
-         */
-        function mostrarProductos(array) {
-
-            let listaProductos = array.payload; 
-
-            let productos_lista = document.getElementById("products-list");
-
-            let HTMLProducto = "";
-
-            listaProductos.forEach(producto => {
-
-                HTMLProducto += `
-                    <li class="product-item">
-                        <img src="${producto.image}" alt="${producto.nombre}" class="product-img">
-                        <p>Id: ${producto.id} / ${producto.product_type} ${producto.desc_text} N°${producto.desc_number} / <strong>Precio: $${producto.price}</strong></p>
-                    </li>
-                `;
-
-            });
-
-            productos_lista.innerHTML = HTMLProducto;
-        }
-
-        obtenerDatosProductos();
-
-    </script>
 
 <%- include("partials/footer.ejs") %>

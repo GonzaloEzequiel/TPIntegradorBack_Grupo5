@@ -1,13 +1,13 @@
 import { Router } from "express";
 import { validateId } from "../middlewares/middlewares.js";
-import { getAllProducts, getProductById, newProduct, editProduct, removeProduct } from "../controllers/product.controllers.js";
+import { getActiveProducts, getAllProducts, getProductById, newProduct, editProduct, removeProduct } from "../controllers/product.controllers.js";
 
 const router = Router();
 
 
 
 // GET todos los productos ACTIVOS
-router.get("/", getAllProducts);
+router.get("/", getActiveProducts);
 
 
 // GET un producto por su ID

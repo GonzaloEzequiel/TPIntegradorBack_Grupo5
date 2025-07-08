@@ -66,30 +66,20 @@
                     throw new Error("No se encontro el producto solicitado.")
                 }
                                     
-                // let producto = datos.payload[0];
-                // mostrarProducto(producto);
-
                 let producto = datos.payload[0];
-
-                let HTMLProducto = `
-                    <li class="product-item">
-                        <img src="${producto.image}" alt="${producto.nombre}" class="product-img">
-                        <p>Id: ${producto.id} / ${producto.product_type} ${producto.desc_text} N°${producto.desc_number} / <strong>Precio: $${producto.price}</strong></p>
-                        <input type="button" class="form-button form-component" id="delete-product-btn" value="Eliminar producto">
-                    </li>
-                `;
-                product_list.innerHTML = HTMLProducto;
+                mostrarProducto(producto);
 
                 let deleteProduct_btn = document.getElementById("delete-product-btn");
-                deleteProduct_btn.addEventListener("click", (event) => {                        
+                deleteProduct_btn.addEventListener("click", (event) => {                /*  Flujo Administrador | 11. El administrador elige un producto activo para eliminar. Presiona el botón eliminar de ese producto. */
                     event.stopPropagation();
 
-                    let confirmation = confirm("¿Quiere eliminar este producto?");
+                    let confirmation = confirm("¿Quiere eliminar este producto?");      /*  Flujo Administrador | 12. Se muestra un modal que pregunta si está seguro de eliminar. El administrador presiona el botón confirmar. */
 
                     if(!confirmation) {
                         alert("Acción cancelada.");
                     } else {
-                        eliminarProducto(idProd);
+                        eliminarProducto(idProd);                                       /*  Flujo Adminsitrador | 13. El producto eliminado pasa a mostrarse en estado inactivo (baja lógica).  */
+                        mostrarProducto(producto);
                     }
                 });
                 
@@ -103,16 +93,15 @@
 
         });
         
-        function mostrarProducto(product) {
+        function mostrarProducto(prod) {
             
             let HTMLProducto = `
                     <li class="product-item">
-                        <img src="${product.image}" alt="${product.nombre}" class="product-img">
-                        <p>Id: ${product.id} / ${product.product_type} ${product.desc_text} N°${product.desc_number} / <strong>Precio: $${producto.price}</strong></p>
-                        <input type="button" class="listados-boton" id="delete-product-btn" value="Eliminar producto">
+                        <img src="${prod.image}" alt="${prod.nombre}" class="product-img">
+                        <p>ID: ${prod.id} / ${prod.product_type} ${prod.quality} ${prod.desc_text} N°${prod.desc_number} / <strong>Precio: $${prod.price}</strong> / ${prod.active ? "[Activo]" : "[Inactivo]"}</p>
+                        <input type="button" class="form-button form-component" id="delete-product-btn" value="Eliminar producto">
                     </li>
                 `;
-
             product_list.innerHTML = HTMLProducto;
         }
 
@@ -120,7 +109,7 @@
 
             try {
 
-                let response = await fetch(`http://localhost:3000/products/${id}`, {
+                let response = await fetch(`${baseUrl}/products/${id}`, {
                     method: "DELETE"
                 });
 
@@ -128,8 +117,9 @@
 
                 if(response.ok) {
 
+                    alert("FUNCIONÓ!!");
                     alert(result.message);
-                    product_list.innerHTML = ``;
+                    //product_list.innerHTML = ``;
                     return true;
 
                 } else {

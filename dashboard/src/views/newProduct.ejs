@@ -14,8 +14,8 @@
 
                 <label for="product-type" class="form-component">Tipo de Producto</label>
                 <select name="product-type" class="form-component" id="product-type-select" required>
-                    <option value="shirt" selected>Camiseta</option>
-                    <option value="shoes">Botines</option>
+                    <option value="Camiseta" selected>Camiseta</option>
+                    <option value="Botines">Botines</option>
                 </select>
 
                 <label for="text-desc" class="form-component" id="text-desc-label">Nombre Estampa</label>
@@ -26,8 +26,8 @@
 
                 <label for="quality" class="form-component">Calidad</label>
                 <select name="quality" class="form-component" id="quality-select" required>
-                    <option id="qualityValue1" value="1" selected>Jugador</option>
-                    <option id="qualityValue2" value="2">Hincha</option>
+                    <option id="qualityValue1" selected>Jugador</option>
+                    <option id="qualityValue2" >Hincha</option>
                 </select>
 
                 <label for="price" class="form-component">Precio</label>
@@ -55,25 +55,25 @@
 
         let productTypeSelect = document.getElementById("product-type-select");
         productTypeSelect.addEventListener("change", () => {
-            if(productTypeSelect.value === "shirt") {
+            if(productTypeSelect.value === "Camiseta") {
 
                 textDescription.textContent = "Nombre Estampa";
                 numberDescription.textContent = "Nro. Camiseta Estampa";
-                qualityValue1.textContent = "Jugador"; qualityValue1.value = "player";
-                qualityValue2.textContent = "Hincha"; qualityValue2.value = "fan";
+                qualityValue1.textContent = "Jugador"; qualityValue1.value = "jugador";
+                qualityValue2.textContent = "Hincha"; qualityValue2.value = "hincha";
 
-            } else if (productTypeSelect.value === "shoes") {
+            } else if (productTypeSelect.value === "Botines") {
 
                 textDescription.textContent = "Modelo";
                 numberDescription.textContent = "Talle";
-                qualityValue1.textContent = "Césped"; qualityValue1.value = "grass";
-                qualityValue2.textContent = "Sintético"; qualityValue1.value = "synthetic";
+                qualityValue1.textContent = "Césped"; qualityValue1.value = "tapón acero";
+                qualityValue2.textContent = "Sintético"; qualityValue1.value = "tapón goma";
             }
         });
         
-        let newProduct_form = document.getElementById("new-product-form");
+        let newProduct_form = document.getElementById("new-product-form");          /*  Flujo Administrador |  8. El administrador completa el formulario. El administrador carga una imagen para el producto. */
 
-        newProduct_form.addEventListener("submit", async (event) => {
+        newProduct_form.addEventListener("submit", async (event) => {               /*  Flujo Administrador | 9. El administrador presiona el botón agregar. */
 
             event.preventDefault();
 
@@ -102,6 +102,8 @@
                     let result = await response.json();
                     console.log(result.message);
                     alert(result.message);
+
+                    window.location.href = `http://localhost:3000/dashboard`;       /*  Flujo Administrador |  10. Se redirige a la pantalla de dashboard. Se muestra el listado de productos, incluyendo el producto agregado. */
 
                 } else {
 

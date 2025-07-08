@@ -50,17 +50,17 @@ export const adminLogin = async (request, response) => {
 
     try {
         
-        let { email, password } = request.body;
+        let { ['admin-email']: email, ['admin-password']: password } = request.body;
 
-        //password = cifrado-password
+        //password = cifrado-password ?
 
         let [rows] = await Admins.logAdmin(email, password);
 
         if(rows.length) {
 
             response.status(200).json({
-                message: "Login exitoso", 
-                admin: rows[0].nombre
+                message: "Login exitoso",
+                admin: rows[0].name
             })
         
         } else {

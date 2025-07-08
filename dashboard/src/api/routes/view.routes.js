@@ -6,12 +6,12 @@ const router = Router();
 /**
  * 
  */
-router.get("/", getProductsView);
+router.get("/", getProductsView);                   
 
 /**
  * 
  */
-router.get("/newProduct", newProductView);
+router.get("/newProduct", newProductView);          /*  Flujo Administrador |  6. El administrador presiona el botón agregar producto. y 7. Se redirige a la pantalla de alta del producto. Se muestra el formulario de alta de producto. */
 
 /**
  * 

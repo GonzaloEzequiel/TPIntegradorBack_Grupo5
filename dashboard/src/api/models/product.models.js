@@ -1,12 +1,24 @@
 import connection from "../database/db.js";
 
+
+/**
+ * 
+ * @returns 
+ */
+const selectActiveProducts = async () => {
+
+    let sql = `SELECT * FROM products WHERE active = 1`;
+    return await connection.query(sql);
+
+}
+
 /**
  * 
  * @returns 
  */
 const selectAllProducts = async () => {
 
-    let sql = `SELECT * FROM products WHERE active = 1`;
+    let sql = `SELECT * FROM products`;
     return await connection.query(sql);
 
 }
@@ -18,7 +30,7 @@ const selectAllProducts = async () => {
  */
 const selectProductById = async (id) => {
 
-    let sql = `SELECT * FROM products WHERE id = ? AND active = 1`;
+    let sql = `SELECT * FROM products WHERE id = ?`;
     return await connection.query(sql, [id]);
 
 }
@@ -65,7 +77,8 @@ const updateProduct = async (id, product_type, image, desc_number, desc_text, qu
  */
 const deleteProduct = async (id) => {
 
-    let sql = `DELETE from products WHERE id = ?;`
+    //let sql = `DELETE from products WHERE id = ?;`
+    let sql = `UPDATE products SET active = 0 WHERE id = ?`;    // BAJA LÓGICA
     return await connection.query(sql, [id]);
 
 }
@@ -75,6 +88,7 @@ const deleteProduct = async (id) => {
 export default {
 
     selectAllProducts,
+    selectActiveProducts,
     selectProductById,
     insertProduct,
     updateProduct,

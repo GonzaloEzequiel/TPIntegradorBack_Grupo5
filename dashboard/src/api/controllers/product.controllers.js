@@ -1,5 +1,34 @@
 import Products from "../models/product.models.js";
 
+
+/**
+ * 
+ * @param {*} request 
+ * @param {*} response 
+ */
+export const getActiveProducts = async (request, response) => {
+
+    try {
+
+        let [rows] = await Products.selectActiveProducts();
+
+        response.status(200).json({
+            payload: rows,
+            message: rows.length === 0 ? "No se encontraron productos" : "Productos encontrados"
+        });
+
+    } catch (error) {
+
+        console.log("Error obteniendo productos ", error);
+
+        response.status(500).json({
+            error: "Error interno del servidor al obtener productos"
+        });
+        
+    }
+    
+}
+
 /**
  * 
  * @param {*} request 
@@ -145,13 +174,17 @@ export const removeProduct = async (request, response) => {
 
         let { id } = request.params;
 
+        console.log("Id:", id);
+
         if(!id) {
             return response.status(400).json({
                 message: "Se requiere un id para eliminar un producto."
             })
         }        
 
-        let [result] = Products.deleteProduct(id);
+        let [result] = await Products.deleteProduct(id);
+
+        console.log("Res:", result);
 
         if(result.affectedRows === 0) {
             return response.status(404).json({
@@ -159,12 +192,14 @@ export const removeProduct = async (request, response) => {
             })
         }
 
-        return response(200).json({
+        return response.status(200).json({
             message: `Producto con id ${id} eliminado correctamente.`
         })
 
     } catch (error) {
         console.error("Error en DELETE /products/:id");
+
+        console.log(error);
 
         response.status(500).json({
             message: `Error al eliminar producto con id: ${id}.`,

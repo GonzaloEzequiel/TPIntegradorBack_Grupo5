@@ -16,6 +16,8 @@ app.use(express.static(join(__dirname, "/src/public")));
 app.use(express.json());
 app.use(cors());
 app.use(loggerUrl);
+app.use("/js", express.static(join(__dirname, "/src/dashboard-js")));
+
 
 
 app.use("/api/products", porductRoutes);

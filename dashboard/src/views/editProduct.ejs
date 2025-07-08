@@ -27,8 +27,7 @@
 
         <br>
 
-        <div id="edit-product-container" class="form-container">           
-
+        <div id="edit-product-container">
         </div> 
 
     </main>
@@ -44,6 +43,9 @@
         get_product_form.addEventListener("submit", async (event) => {
 
             event.preventDefault();
+            
+            edit_product_container.removeAttribute("class", "form-container");
+            edit_product_container.innerHTML = ``;
 
             try {
 
@@ -59,12 +61,16 @@
                 }
 
                 let response = await fetch(`${baseUrl}/products/${idProd}`);
+
+                console.log(response);
                 
                 if(!response.ok) {
                     throw new Error(`Error ${response.status}: ${response.statusText}`);
                 }
 
                 let datos = await response.json();
+
+                console.log(datos);
 
                 if(!datos.payload || datos.payload.length === 0) {
                     throw new Error("No se encontro el producto solicitado.")
@@ -103,45 +109,42 @@
             console.log(product);
 
             let updateProduct = `
-                <div id="edit-product-container" class="form-container">
+                <h3 class="form-title">Actualizar Producto</h3>
 
-                    <h3 class="form-title">Actualizar Producto</h3>
+                <form id="edit-product-form" autocomplete="off">
 
-                    <form id="edit-product-form" autocomplete="off">
+                    <label for="product-id" class="form-component">ID</label>
+                    <input type="number" name="product-id" class="form-component" id="product-id-inputt" value="${product.id}"" readonly>
 
-                        <label for="product-id" class="form-component">ID</label>
-                        <input type="number" name="product-id" class="form-component" id="product-id-inputt" value="${product.id}"" readonly>
+                    <label for="product-type" class="form-component">Tipo de Producto</label>
+                    <select name="product-type" class="form-component" id="product-type-select" required>
+                        <option value="Camiseta" selected>Camiseta</option>
+                        <option value="Botines">Botines</option>
+                    </select>
 
-                        <label for="product-type" class="form-component">Tipo de Producto</label>
-                        <select name="product-type" class="form-component" id="product-type-select" required>
-                            <option value="shirt" selected>Camiseta</option>
-                            <option value="shoes">Botines</option>
-                        </select>
+                    <label for="text-desc" class="form-component" id="text-desc-label">Nombre Estampa</label>
+                    <input type="text" name="text-desc" class="form-component" id="text-desc-input" value="${product.desc_text}" required>
 
-                        <label for="text-desc" class="form-component" id="text-desc-label">Nombre Estampa</label>
-                        <input type="text" name="text-desc" class="form-component" id="text-desc-input" value="${product.desc_text}" required>
+                    <label for="number-desc" class="form-component" id="number-desc-label">Nro. Camiseta Estampa</label>
+                    <input type="number" name="number-desc" class="form-component" id="number-desc-input" value="${product.desc_number}" required>
 
-                        <label for="number-desc" class="form-component" id="number-desc-label">Nro. Camiseta Estampa</label>
-                        <input type="number" name="number-desc" class="form-component" id="number-desc-input" value="${product.desc_number}" required>
+                    <label for="quality" class="form-component">Calidad</label>
+                    <select name="quality" class="form-component" id="quality-select" required>
+                        <option id="qualityValue1" value="1" selected>Jugador</option>
+                        <option id="qualityValue2" value="2">Hincha</option>
+                    </select>
 
-                        <label for="quality" class="form-component">Calidad</label>
-                        <select name="quality" class="form-component" id="quality-select" required>
-                            <option id="qualityValue1" value="1" selected>Jugador</option>
-                            <option id="qualityValue2" value="2">Hincha</option>
-                        </select>
+                    <label for="price" class="form-component">Precio</label>
+                    <input type="number" name="price" class="form-component" id="price-input" value="${product.price}" required>
 
-                        <label for="price" class="form-component">Precio</label>
-                        <input type="number" name="price" class="form-component" id="price-input" value="${product.price}" required>
+                    <label for="image" class="form-component">Imagen</label>
+                    <input type="text" name="image" class="form-component" id="image-input" value="${product.image}" required>
 
-                        <label for="image" class="form-component">Imagen</label>
-                        <input type="text" name="image" class="form-component" id="image-input" value="${product.image}" required>
+                    <input type="submit" class="form-component" value="Actualizar Producto">
 
-                        <input type="submit" class="form-component" value="Actualizar Producto">
+                </form>`;
 
-                    </form>
-
-                </div>`;
-
+            edit_product_container.setAttribute("class", "form-container");
             edit_product_container.innerHTML = updateProduct;
 
             let productTypeSelect = document.getElementById("product-type-select");
@@ -155,15 +158,15 @@
 
                     textDescription.textContent = "Estampa";
                     numberDescription.textContent = "Nro. Camiseta";
-                    qualityValue1.textContent = "Jugador";
-                    qualityValue2.textContent = "Hincha";
+                    qualityValue1.textContent = "Jugador"; qualityValue1.value = "jugador";
+                    qualityValue2.textContent = "Hincha"; qualityValue2.value = "hincha";
 
                 } else if (productTypeSelect.value === "shoes") {
 
                     textDescription.textContent = "Modelo";
                     numberDescription.textContent = "Talle";
-                    qualityValue1.textContent = "Césped";
-                    qualityValue2.textContent = "Sintético";
+                    qualityValue1.textContent = "Césped"; qualityValue1.value = "tapón acero";
+                    qualityValue2.textContent = "Sintético"; qualityValue1.value = "tapón goma";
                 }
             });
 
@@ -205,6 +208,7 @@
 
                     product_list.innerHTML = ``;
                     edit_product_container.innerHTML = ``;
+                    window.location.href = `http://localhost:3000/dashboard`;   /*  Flujo Administrador | 18. Se redirige a la pantalla dashboard. Se muestra el listado de productos, incluyendo el producto modificado.   */
 
                 } else {
 

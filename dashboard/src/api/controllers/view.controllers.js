@@ -15,6 +15,7 @@ export const getProductsView = async (request, response) => {
 
             title: "Fulbo$hop | Productos",
             about: "Nuestros Productos",
+            script: "products.js",
             products: result[0]
 
         });
@@ -38,7 +39,8 @@ export const getProductsView = async (request, response) => {
 export const newProductView = async (request, response) => {
     response.render("newProduct", {
         title: "Fulbo$hop | Crear",
-        about: "Nuevo Producto"
+        about: "Nuevo Producto",
+        script: "newProduct.js"
     })
 }
 
@@ -50,7 +52,8 @@ export const newProductView = async (request, response) => {
 export const editProductView = async (request, response) => {
     response.render("editProduct", {
         title: "Fulbo$hop | Modificar",
-        about: "Modificar Producto"
+        about: "Modificar Producto",
+        script: "editProduct.js"
     })
 }
 
@@ -62,6 +65,7 @@ export const editProductView = async (request, response) => {
 export const removeProductView = async (request, response) => {
     response.render("removeProduct", {
         title: "Fulbo$hop | Eliminar",
-        about: "Elmimnar Producto"
+        about: "Elmimnar Producto",
+        script: "removeProduct.js"
     })
 }
