@@ -24,6 +24,10 @@ app.use("/api/products", porductRoutes);
 app.use("/api/admin", adminRoutes);
 app.use("/dashboard", viewRoutes);
 
+app.get("/", (req, res) => {
+    res.send("TEST DESDE ROOT");
+})
+
 
 /**
  * Abre el servidor, y lo pone a escuchar en el puerto declarado

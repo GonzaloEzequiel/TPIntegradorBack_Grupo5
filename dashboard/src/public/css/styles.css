@@ -249,6 +249,7 @@ hr {
 .product-item img {
     max-height: 50px;
     border: var(--color-header) solid 2px;
+    border-radius: 5px;
     padding: 5px;
     margin-right: 15px;
 }

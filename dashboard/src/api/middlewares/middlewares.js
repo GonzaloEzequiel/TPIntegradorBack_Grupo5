@@ -20,7 +20,7 @@ const validateId = (request, response, next) => {
 }
 
 
-function initlizeTheme() {
+const initializeTheme = () => {
 
     const indicator = document.getElementById("theme-sign");
     let themeSwitch = document.getElementById("theme-input");
@@ -61,5 +61,5 @@ function initlizeTheme() {
 export {
     loggerUrl,
     validateId,
-    initlizeTheme
+    initializeTheme
 }

@@ -11,7 +11,7 @@
             <label class="switch">
                 <input type="checkbox" class="theme" id="theme-input">
                 <div class="switch-rail"><span class="switch-orb"></span></div>
-                <span class="theme-sign"><img src="" alt="temaOscuro" id="theme-sign"></span>
+                <span class="theme-sign"><img src="/img/temaOscuro.png" alt="temaOscuro" id="theme-sign"></span>
             </label>
             <a href="/dashboard"><button class="nav-button" id="btn-products">Productos</button></a>
             <a href="/dashboard/newProduct"><button class="nav-button" id="btn-new-product">Agregar Producto</button></a>
@@ -27,6 +27,44 @@
     navigation.forEach(btn => btn.style.visibility = "visible");
 
     document.addEventListener("DOMContentLoaded", () => { 
-        initlizeTheme();
+        initializeTheme();
     })
+
+    const initializeTheme = () => {
+
+        const indicator = document.getElementById("theme-sign");
+        let themeSwitch = document.getElementById("theme-input");
+
+        const savedTheme = localStorage.getItem("theme");
+
+        if (savedTheme === "dark") {
+
+            indicator.setAttribute("src", `/img/temaClaro.png`);
+            document.body.classList.add("dark-theme");
+            themeSwitch.checked = true;
+
+        } else {
+
+            indicator.setAttribute("src", `/img/temaOscuro.png`);
+
+        }
+
+        themeSwitch.addEventListener("change", () => {        
+
+            if (themeSwitch.checked) {
+
+                indicator.setAttribute("src", `/img/temaClaro.png`);
+                document.body.classList.add("dark-theme");
+                localStorage.setItem("theme", "dark");
+
+            } else {
+
+                indicator.setAttribute("src", `/img/temaOscuro.png`);
+                document.body.classList.remove("dark-theme");
+                localStorage.setItem("theme", "light");
+
+            }
+        });
+
+    }
 </script>
