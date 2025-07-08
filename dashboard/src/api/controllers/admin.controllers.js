@@ -2,10 +2,10 @@ import Admins from "../models/admin.models.js"
 
 
 /**
- * 
- * @param {*} request 
- * @param {*} response 
- * @returns 
+ * Se encarga de invocar al modelo para dar de alta un nuevo administrador en el dashboard y manejar la respuesta de la bbdd    (! no implementao aun)
+ * @param {*} request solicitud de la ruta con los datos del nuevo administrador
+ * @param {*} response respuesta a la ruta con la resolución de la operación
+ * @returns respuesta de la operación a la petición
  */
 export const newAdmin = async (request, response) => {
 
@@ -42,9 +42,9 @@ export const newAdmin = async (request, response) => {
 }
 
 /**
- * 
- * @param {*} request 
- * @param {*} response 
+ * Se encarga de invocar al modelo para validar las credenciales de un administrador y manejar la respuesta de la bbdd
+ * @param {*} request solicitud de la ruta con las credenciales a validar
+ * @param {*} response respuesta a la ruta con la resolución de la operación
  */
 export const adminLogin = async (request, response) => {
 

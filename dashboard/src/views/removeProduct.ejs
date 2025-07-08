@@ -93,6 +93,10 @@
 
         });
         
+        /**
+         * Muestra los datos del producto filtrado
+         * @param prod el producto filtrado
+         */
         function mostrarProducto(prod) {
             
             let HTMLProducto = `
@@ -105,6 +109,10 @@
             product_list.innerHTML = HTMLProducto;
         }
 
+        /**
+         * Elimina el producto filtrado
+         * @param id identificador del producto filtrado
+         */
         async function eliminarProducto(id) {
 
             try {

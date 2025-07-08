@@ -2,8 +2,8 @@ import connection from "../database/db.js";
 
 
 /**
- * 
- * @returns 
+ * Petición a la base de datos para traer todos los productos activos
+ * @returns respuesta de la bbdd a la petición
  */
 const selectActiveProducts = async () => {
 
@@ -13,8 +13,8 @@ const selectActiveProducts = async () => {
 }
 
 /**
- * 
- * @returns 
+ * Petición a la base de datos para traer todos los productos (activos e inactivos)
+ * @returns respuesta de la bbdd a la petición
  */
 const selectAllProducts = async () => {
 
@@ -24,9 +24,9 @@ const selectAllProducts = async () => {
 }
 
 /**
- * 
- * @param {*} id 
- * @returns 
+ * Petición a la base de datos para traer filtrar un producto por su identificador numérico
+ * @param {*} id identificador numérico unívoco del producto filtrado
+ * @returns respuesta de la bbdd a la petición
  */
 const selectProductById = async (id) => {
 
@@ -36,14 +36,14 @@ const selectProductById = async (id) => {
 }
 
 /**
- * 
- * @param {*} product_type 
- * @param {*} image 
- * @param {*} desc_number 
- * @param {*} desc_text 
- * @param {*} quality 
- * @param {*} price 
- * @returns 
+ * Petición a la base de datos para insertar un nuevo producto
+ * @param {*} product_type tipo del producto
+ * @param {*} image imagen del producto
+ * @param {*} desc_number descripción numérica del producto según tipo (estampa/número calzado)
+ * @param {*} desc_text descripción de texto del producto según tipo (estampa/modelo calzado)
+ * @param {*} quality descripción de la calidad del producto según tipo
+ * @param {*} price precio del producto
+ * @returns respuesta de la bbdd a la petición
  */
 const insertProduct = async (product_type, image, desc_number, desc_text, quality, price) => {
 
@@ -53,15 +53,15 @@ const insertProduct = async (product_type, image, desc_number, desc_text, qualit
 }
 
 /**
- * 
- * @param {*} id 
- * @param {*} product_type 
- * @param {*} image 
- * @param {*} desc_number 
- * @param {*} desc_text 
- * @param {*} quality 
- * @param {*} price 
- * @returns 
+ * Petición a la base de datos para modificar un producto existente (previamente filtrado)
+ * @param {*} id identificador numérico unívoco del producto filtrado
+ * @param {*} product_type tipo del producto
+ * @param {*} image imagen del product
+ * @param {*} desc_number descripción numérica del producto según tipo (estampa/número calzado)
+ * @param {*} desc_text descripción de texto del producto según tipo (estampa/modelo calzado)
+ * @param {*} quality descripción de la calidad del producto según tipo
+ * @param {*} price precio del producto
+ * @returns respuesta de la bbdd a la petición
  */
 const updateProduct = async (id, product_type, image, desc_number, desc_text, quality, price) => {
 
@@ -71,9 +71,9 @@ const updateProduct = async (id, product_type, image, desc_number, desc_text, qu
 }
 
 /**
- * 
- * @param {*} id 
- * @returns 
+ * Petición a la base de datos para dar baja lógica a un producto existente (previamente filtrado)
+ * @param {*} id identificador numérico unívoco del producto filtrado
+ * @returns respuesta de la bbdd a la petición
  */
 const deleteProduct = async (id) => {
 

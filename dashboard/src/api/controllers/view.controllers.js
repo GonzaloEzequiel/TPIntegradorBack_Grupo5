@@ -2,9 +2,9 @@ import Products from "../models/product.models.js";
 
 
 /**
- * Get view for list products
- * @param {*} request 
- * @param {*} response 
+ * Muestra la vista 'productos' con las variables necesarias
+ * @param {*} request solicitud de la ruta (sin datos como parámetro)
+ * @param {*} response respuesta a la ruta con el renderizado de la vista
  */
 export const getProductsView = async (request, response) => {
 
@@ -32,9 +32,9 @@ export const getProductsView = async (request, response) => {
 }
 
 /**
- * Get view for new product
- * @param {*} request 
- * @param {*} response 
+ * Muestra la vista 'nuevo producto' con las variables necesarias
+ * @param {*} request solicitud de la ruta (sin datos como parámetro)
+ * @param {*} response respuesta a la ruta con el renderizado de la vista
  */
 export const newProductView = async (request, response) => {
     response.render("newProduct", {
@@ -45,9 +45,9 @@ export const newProductView = async (request, response) => {
 }
 
 /**
- * 
- * @param {*} request 
- * @param {*} response 
+ * Muestra la vista 'midificar producto' con las variables necesarias
+ * @param {*} request solicitud de la ruta (sin datos como parámetro)
+ * @param {*} response respuesta a la ruta con el renderizado de la vista
  */
 export const editProductView = async (request, response) => {
     response.render("editProduct", {
@@ -58,9 +58,9 @@ export const editProductView = async (request, response) => {
 }
 
 /**
- * 
- * @param {*} request 
- * @param {*} response 
+ * Muestra la vista 'eliminar producto' con las variables necesarias
+ * @param {*} request solicitud de la ruta (sin datos como parámetro)
+ * @param {*} response respuesta a la ruta con el renderizado de la vista
  */
 export const removeProductView = async (request, response) => {
     response.render("removeProduct", {
