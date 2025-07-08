@@ -163,6 +163,52 @@ export const editProduct = async (request, response) => {
 }
 
 /**
+ * Se encarga de invocar al modelo para "activar" un producto en específico
+ * @param {*} request solicitud de la ruta con el identificador del producto
+ * @param {*} response respuesta a la ruta con la resolución de la operación
+ */
+export const reactivateProduct = async (request, response) => {
+
+    try {
+
+        let { id } = request.params;
+
+        if(!id) {
+            return response.status(400).json({
+                message: "Se requiere un id para eliminar un producto."
+            })
+        }
+
+        let [result] = await Products.activateProduct(id);
+
+        console.log("Res:", result);
+
+        if(result.affectedRows === 0) {
+            return response.status(404).json({
+                message: `No se encontró un producto con id ${id}.`
+            })
+        }
+
+        return response.status(200).json({
+            message: `Producto con id ${id} activado correctamente.`
+        })
+
+    } catch (error) {
+
+        console.error("Error en PATCH /products/:id");
+
+        console.log(error);
+
+        response.status(500).json({
+            message: `Error al intentar activar el producto con id: ${id}.`,
+            error: error.message
+        })
+
+    }
+
+}
+
+/**
  * Se encarga de invocar al modelo para dar de baja a un producto en específico
  * @param {*} request solicitud de la ruta con el identificador del producto
  * @param {*} response respuesta a la ruta con la resolución de la operación
@@ -174,13 +220,11 @@ export const removeProduct = async (request, response) => {
 
         let { id } = request.params;
 
-        console.log("Id:", id);
-
         if(!id) {
             return response.status(400).json({
                 message: "Se requiere un id para eliminar un producto."
             })
-        }        
+        }
 
         let [result] = await Products.deleteProduct(id);
 

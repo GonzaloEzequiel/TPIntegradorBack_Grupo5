@@ -14,6 +14,9 @@
                     <li class="product-item">
                             <img src="<%= prod.image %> " alt="<%= prod.name %>" class="product-img">
                             <p>ID: <%= prod.id %> / <%= prod.product_type %> <%= prod.quality %> <%= prod.desc_text %> N°<%= prod.desc_number %> / <strong>Precio: $<%= prod.price %></strong><%= prod.active ? " / [Activo]" : " / [Inactivo]" %></p>
+                            <% if(!prod.active) { %>
+                                <input type="button" class="form-button form-component" id="activate-product-btn" value="Activar Producto">
+                            <% } %> 
                     </li>
 
                 <% }) %>
@@ -21,5 +24,31 @@
             </ul>
         </div>
     </main>
+
+    <script>
+        document.getElementById("activate-product-btn").addEventListener("click", async () => {
+            let confirmation = confirm("¿Quiere activar este producto?");
+
+            if(!confirmation) {
+                alert("Acción cancelada.");
+
+            } else {
+
+                let response = await fetch(`${baseUrl}/products/<%= prod.id %>`, { 
+                    method: "PATCH"
+                });
+                
+                let result = await response.json();
+
+                if(response.ok) {
+                    alert(result.message);
+                    return true;
+                } else {
+                    console.error("Error: ", result.message);
+                    return false;
+                }
+            }
+        });
+    </script>
 
 <%- include("partials/footer.ejs") %>

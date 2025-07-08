@@ -82,7 +82,7 @@
                     <li class="product-item">
                         <img src="${producto.image}" alt="${producto.nombre}" class="product-img">
                         <p>Id: ${producto.id} / ${producto.product_type} ${producto.desc_text} N°${producto.desc_number} / <strong>Precio: $${producto.price}</strong></p>
-                        <input type="button" class="form-button form-component" id="edit-product-btn" value="Actualizar producto">
+                        <input type="button" class="form-button form-component" id="edit-product-btn" value="Actualizar Producto">
                     </li>
                 `;
 
@@ -186,12 +186,13 @@
             edit_product_container.setAttribute("class", "form-container");
             edit_product_container.innerHTML = updateProduct;
 
-            let productTypeSelect = document.getElementById("product-type-select");
             let qualitySelect = document.getElementById("quality-select");
-            let textDescription = document.getElementById("text-desc-label");
-            let numberDescription = document.getElementById("number-desc-label");
             let qualityValue1 = document.getElementById("qualityValue1");
             let qualityValue2 = document.getElementById("qualityValue2");
+            let textDescription = document.getElementById("text-desc-label");
+            let numberDescription = document.getElementById("number-desc-label");
+            
+            let productTypeSelect = document.getElementById("product-type-select");
             productTypeSelect.addEventListener("change", () => {
                 if(productTypeSelect.value === "shirt") {
 

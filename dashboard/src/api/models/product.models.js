@@ -47,7 +47,7 @@ const selectProductById = async (id) => {
  */
 const insertProduct = async (product_type, image, desc_number, desc_text, quality, price) => {
 
-    let sql = `INSERT INTO products (product_type, active, image, desc_number, desc_text, quality, price) VALUES (?, 1, ?, ?, ?, ?, ?);`
+    let sql = `INSERT INTO products (product_type, active, image, desc_number, desc_text, quality, price) VALUES (?, 1, ?, ?, ?, ?, ?);`;
     return await connection.query(sql, [product_type, image, desc_number, desc_text, quality, price]);
 
 }
@@ -65,8 +65,20 @@ const insertProduct = async (product_type, image, desc_number, desc_text, qualit
  */
 const updateProduct = async (id, product_type, image, desc_number, desc_text, quality, price) => {
 
-    let sql = `UPDATE products SET product_type = ?, active = 1, image = ?, desc_number = ?, desc_text = ?, quality = ?, price = ? WHERE id = ?;`
+    let sql = `UPDATE products SET product_type = ?, active = 1, image = ?, desc_number = ?, desc_text = ?, quality = ?, price = ? WHERE id = ?;`;
     return await connection.query(sql, [product_type, image, desc_number, desc_text, quality, price, id]);
+
+}
+
+/**
+ * Petición a la base de datos para dar 'alta lógica' a un producto existente (previamente filtrado)
+ * @param {*} id identificador numérico unívoco del producto filtrado
+ * @returns respuesta de la bbdd a la petición
+ */
+const activateProduct = async (id) => {
+
+    let sql = `UPDATE products SET active = 1 WHERE id = ?;`;
+    return await connection.query(sql, [id]);
 
 }
 
@@ -78,7 +90,7 @@ const updateProduct = async (id, product_type, image, desc_number, desc_text, qu
 const deleteProduct = async (id) => {
 
     //let sql = `DELETE from products WHERE id = ?;`
-    let sql = `UPDATE products SET active = 0 WHERE id = ?`;    // BAJA LÓGICA
+    let sql = `UPDATE products SET active = 0 WHERE id = ?;`;    // BAJA LÓGICA
     return await connection.query(sql, [id]);
 
 }
@@ -92,6 +104,7 @@ export default {
     selectProductById,
     insertProduct,
     updateProduct,
+    activateProduct,
     deleteProduct
 
 }
