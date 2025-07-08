@@ -78,8 +78,8 @@
                     if(!confirmation) {
                         alert("Acción cancelada.");
                     } else {
-                        eliminarProducto(idProd)                                        /*  Flujo Adminsitrador | 13. El producto eliminado pasa a mostrarse en estado inactivo (baja lógica).  */
-                        .then(mostrarProducto(prod));
+                        const eliminado = await eliminarProducto(idProd).then(mostrarProducto(producto));                                        /*  Flujo Adminsitrador | 13. El producto eliminado pasa a mostrarse en estado inactivo (baja lógica).  */
+                        
                     }
                 });
                 
@@ -98,8 +98,11 @@
          * @param prod el producto filtrado
          */
         function mostrarProducto(prod) {
+
+            let HTMLProducto = ``;
+            product_list.innerHTML = HTMLProducto;
             
-            let HTMLProducto = `
+            HTMLProducto = `
                     <li class="product-item">
                         <img src="${prod.image}" alt="${prod.nombre}" class="product-img">
                         <p>ID: ${prod.id} / ${prod.product_type} ${prod.quality} ${prod.desc_text} N°${prod.desc_number} / <strong>Precio: $${prod.price}</strong> / ${prod.active ? "[Activo]" : "[Inactivo]"}</p>
@@ -126,6 +129,7 @@
                 if(response.ok) {
 
                     alert(result.message);
+                    window.location.href = `http://localhost:3000/dashboard`; 
                     return true;
 
                 } else {

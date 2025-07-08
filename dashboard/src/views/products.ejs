@@ -14,8 +14,9 @@
                     <li class="product-item">
                             <img src="<%= prod.image %> " alt="<%= prod.name %>" class="product-img">
                             <p>ID: <%= prod.id %> / <%= prod.product_type %> <%= prod.quality %> <%= prod.desc_text %> N°<%= prod.desc_number %> / <strong>Precio: $<%= prod.price %></strong><%= prod.active ? " / [Activo]" : " / [Inactivo]" %></p>
+
                             <% if(!prod.active) { %>
-                                <input type="button" class="form-button form-component" id="activate-product-btn" value="Activar Producto">
+                                <input type="button" class="form-button form-component activate-product-btn" id="activate-product-btn" value="Activar Producto" data-id="<%= prod.id %>">
                             <% } %> 
                     </li>
 
@@ -26,29 +27,43 @@
     </main>
 
     <script>
-        document.getElementById("activate-product-btn").addEventListener("click", async () => {
-            let confirmation = confirm("¿Quiere activar este producto?");
+        const baseUrl = "http://localhost:3000/api";
 
-            if(!confirmation) {
-                alert("Acción cancelada.");
+        let btnsActivar = document.querySelectorAll(".activate-product-btn")
+        
+        btnsActivar.forEach( btn => {
 
-            } else {
+            btn.addEventListener("click", async () => {
+                const idProd = event.target.getAttribute("data-id");
+                console.log("ID del producto a activar:", idProd);
 
-                let response = await fetch(`${baseUrl}/products/<%= prod.id %>`, { 
-                    method: "PATCH"
-                });
-                
-                let result = await response.json();
+                const confirmation = confirm("¿Quiere activar este producto?");
 
-                if(response.ok) {
-                    alert(result.message);
-                    return true;
+                if(!confirmation) {
+                    alert("Acción cancelada.");
+
                 } else {
-                    console.error("Error: ", result.message);
-                    return false;
+
+                    let response = await fetch(`${baseUrl}/products/${idProd}`, { 
+                        method: "PATCH"
+                    });
+                    
+                    let result = await response.json();
+
+                    if(response.ok) {
+                        alert(result.message);
+                        window.location.href = `http://localhost:3000/dashboard`;
+                        return true;
+                    } else {
+                        console.error("Error: ", result.message);
+                        return false;
+                    }
                 }
-            }
+            });
+
         });
+        
+        
     </script>
 
 <%- include("partials/footer.ejs") %>

@@ -111,7 +111,8 @@
             event.stopPropagation();
             console.log(product);
 
-            let auxStringSelect1; auxStringSelect2;
+            let auxStringSelect1; 
+            let auxStringSelect2;
             if(product.product_type === "Camiseta") {
                 auxStringSelect1 = `
                     <option value="Camiseta" selected>Camiseta</option>
@@ -120,13 +121,13 @@
                 
                 if(product.quality === "Jugador") {
                     auxStringSelect2 = `
-                        <option id="qualityValue1" value="Césped" selected>Césped</option>
-                        <option id="qualityValue2" value="Sintético">Sintético</option>
+                        <option id="qualityValue1" value="Jugador" selected>Jugador</option>
+                        <option id="qualityValue2" value="Hincha">Hincha</option>
                     `;
                 } else {
                     auxStringSelect2 = `
-                        <option id="qualityValue1" value="Césped">Césped</option>
-                        <option id="qualityValue2" value="Sintético" selected>Sintético</option>
+                        <option id="qualityValue1" value="Jugador">Jugador</option>
+                        <option id="qualityValue2" value="Hincha" selected>Hincha</option>
                     `;
                 }
 
@@ -138,13 +139,13 @@
 
                 if(product.quality === "Césped") {
                     auxStringSelect2 = `
-                        <option id="qualityValue1" value="Jugador" selected>Jugador</option>
-                        <option id="qualityValue2" value="Hincha">Hincha</option>
-                    `;
-                } else {
+                        <option id="qualityValue1" value="Césped" selected>Césped</option>
+                        <option id="qualityValue2" value="Sintético">Sintético</option>
+                    `;                    
+                } else {                    
                     auxStringSelect2 = `
-                        <option id="qualityValue1" value="Jugador">Jugador</option>
-                        <option id="qualityValue2" value="Hincha" selected>Hincha</option>
+                        <option id="qualityValue1" value="Césped">Césped</option>
+                        <option id="qualityValue2" value="Sintético" selected>Sintético</option>
                     `;
                 }
             }
@@ -269,5 +270,3 @@
         }
 
     </script>
-
-<%- include("partials/footer.ejs") %>
