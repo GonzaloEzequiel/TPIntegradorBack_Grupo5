@@ -78,8 +78,8 @@
                     if(!confirmation) {
                         alert("Acción cancelada.");
                     } else {
-                        eliminarProducto(idProd);                                       /*  Flujo Adminsitrador | 13. El producto eliminado pasa a mostrarse en estado inactivo (baja lógica).  */
-                        mostrarProducto(producto);
+                        eliminarProducto(idProd)                                         /*  Flujo Adminsitrador | 13. El producto eliminado pasa a mostrarse en estado inactivo (baja lógica).  */
+                        .then(mostrarProducto(prod));
                     }
                 });
                 

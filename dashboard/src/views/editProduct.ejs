@@ -111,18 +111,55 @@
             event.stopPropagation();
             console.log(product);
 
+            let auxStringSelect1; auxStringSelect2;
+            if(product.product_type === "Camiseta") {
+                auxStringSelect1 = `
+                    <option value="Camiseta" selected>Camiseta</option>
+                    <option value="Botines">Botines</option>
+                `;
+                
+                if(product.quality === "Jugador") {
+                    auxStringSelect2 = `
+                        <option id="qualityValue1" value="Césped" selected>Césped</option>
+                        <option id="qualityValue2" value="Sintético">Sintético</option>
+                    `;
+                } else {
+                    auxStringSelect2 = `
+                        <option id="qualityValue1" value="Césped">Césped</option>
+                        <option id="qualityValue2" value="Sintético" selected>Sintético</option>
+                    `;
+                }
+
+            } else {
+                auxStringSelect1 = `
+                    <option value="Camiseta">Camiseta</option>
+                    <option value="Botines" selected>Botines</option>
+                `;
+
+                if(product.quality === "Césped") {
+                    auxStringSelect2 = `
+                        <option id="qualityValue1" value="Jugador" selected>Jugador</option>
+                        <option id="qualityValue2" value="Hincha">Hincha</option>
+                    `;
+                } else {
+                    auxStringSelect2 = `
+                        <option id="qualityValue1" value="Jugador">Jugador</option>
+                        <option id="qualityValue2" value="Hincha" selected>Hincha</option>
+                    `;
+                }
+            }
+
             let updateProduct = `
                 <h3 class="form-title">Actualizar Producto</h3>
 
                 <form id="edit-product-form" autocomplete="off">
 
                     <label for="product-id" class="form-component">ID</label>
-                    <input type="number" name="product-id" class="form-component" id="product-id-inputt" value="${product.id}"" readonly>
+                    <input type="number" name="product-id" class="form-component" id="product-id-input" value="${product.id}" readonly>
 
                     <label for="product-type" class="form-component">Tipo de Producto</label>
                     <select name="product-type" class="form-component" id="product-type-select" required>
-                        <option value="Camiseta" selected>Camiseta</option>
-                        <option value="Botines">Botines</option>
+                        ${auxStringSelect1}
                     </select>
 
                     <label for="text-desc" class="form-component" id="text-desc-label">Nombre Estampa</label>
@@ -133,8 +170,7 @@
 
                     <label for="quality" class="form-component">Calidad</label>
                     <select name="quality" class="form-component" id="quality-select" required>
-                        <option id="qualityValue1" value="1" selected>Jugador</option>
-                        <option id="qualityValue2" value="2">Hincha</option>
+                        ${auxStringSelect2}
                     </select>
 
                     <label for="price" class="form-component">Precio</label>
@@ -179,6 +215,10 @@
             })
         }
 
+        /**
+         * Actualiza el producto filtrado desde el front, llamando a la ruta del servidor
+         * @param event evento para evitar el envío del formulario al destino por defecto
+         */
         async function actualizarProducto(event) {
             event.preventDefault();
 
