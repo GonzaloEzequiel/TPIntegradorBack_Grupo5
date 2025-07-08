@@ -82,7 +82,7 @@
                     <li class="product-item">
                         <img src="${producto.image}" alt="${producto.nombre}" class="product-img">
                         <p>Id: ${producto.id} / ${producto.product_type} ${producto.desc_text} N°${producto.desc_number} / <strong>Precio: $${producto.price}</strong></p>
-                        <input type="button" class="form-button form-component" id="edit-product-btn" value="Actualizar producto">
+                        <input type="button" class="form-button form-component" id="edit-product-btn" value="Actualizar Producto">
                     </li>
                 `;
 
@@ -104,9 +104,50 @@
 
         });
         
+        /**
+         *  Crea el formulario de modificación una vez filtrado el producto a editar
+         */
         function formularioPutProducto(event, product) {
             event.stopPropagation();
             console.log(product);
+
+            let auxStringSelect1; auxStringSelect2;
+            if(product.product_type === "Camiseta") {
+                auxStringSelect1 = `
+                    <option value="Camiseta" selected>Camiseta</option>
+                    <option value="Botines">Botines</option>
+                `;
+                
+                if(product.quality === "Jugador") {
+                    auxStringSelect2 = `
+                        <option id="qualityValue1" value="Césped" selected>Césped</option>
+                        <option id="qualityValue2" value="Sintético">Sintético</option>
+                    `;
+                } else {
+                    auxStringSelect2 = `
+                        <option id="qualityValue1" value="Césped">Césped</option>
+                        <option id="qualityValue2" value="Sintético" selected>Sintético</option>
+                    `;
+                }
+
+            } else {
+                auxStringSelect1 = `
+                    <option value="Camiseta">Camiseta</option>
+                    <option value="Botines" selected>Botines</option>
+                `;
+
+                if(product.quality === "Césped") {
+                    auxStringSelect2 = `
+                        <option id="qualityValue1" value="Jugador" selected>Jugador</option>
+                        <option id="qualityValue2" value="Hincha">Hincha</option>
+                    `;
+                } else {
+                    auxStringSelect2 = `
+                        <option id="qualityValue1" value="Jugador">Jugador</option>
+                        <option id="qualityValue2" value="Hincha" selected>Hincha</option>
+                    `;
+                }
+            }
 
             let updateProduct = `
                 <h3 class="form-title">Actualizar Producto</h3>
@@ -114,12 +155,11 @@
                 <form id="edit-product-form" autocomplete="off">
 
                     <label for="product-id" class="form-component">ID</label>
-                    <input type="number" name="product-id" class="form-component" id="product-id-inputt" value="${product.id}"" readonly>
+                    <input type="number" name="product-id" class="form-component" id="product-id-input" value="${product.id}" readonly>
 
                     <label for="product-type" class="form-component">Tipo de Producto</label>
                     <select name="product-type" class="form-component" id="product-type-select" required>
-                        <option value="Camiseta" selected>Camiseta</option>
-                        <option value="Botines">Botines</option>
+                        ${auxStringSelect1}
                     </select>
 
                     <label for="text-desc" class="form-component" id="text-desc-label">Nombre Estampa</label>
@@ -130,8 +170,7 @@
 
                     <label for="quality" class="form-component">Calidad</label>
                     <select name="quality" class="form-component" id="quality-select" required>
-                        <option id="qualityValue1" value="1" selected>Jugador</option>
-                        <option id="qualityValue2" value="2">Hincha</option>
+                        ${auxStringSelect2}
                     </select>
 
                     <label for="price" class="form-component">Precio</label>
@@ -147,26 +186,27 @@
             edit_product_container.setAttribute("class", "form-container");
             edit_product_container.innerHTML = updateProduct;
 
-            let productTypeSelect = document.getElementById("product-type-select");
             let qualitySelect = document.getElementById("quality-select");
-            let textDescription = document.getElementById("text-desc-label");
-            let numberDescription = document.getElementById("number-desc-label");
             let qualityValue1 = document.getElementById("qualityValue1");
             let qualityValue2 = document.getElementById("qualityValue2");
+            let textDescription = document.getElementById("text-desc-label");
+            let numberDescription = document.getElementById("number-desc-label");
+            
+            let productTypeSelect = document.getElementById("product-type-select");
             productTypeSelect.addEventListener("change", () => {
                 if(productTypeSelect.value === "shirt") {
 
                     textDescription.textContent = "Estampa";
                     numberDescription.textContent = "Nro. Camiseta";
-                    qualityValue1.textContent = "Jugador"; qualityValue1.value = "jugador";
-                    qualityValue2.textContent = "Hincha"; qualityValue2.value = "hincha";
+                    qualityValue1.textContent = "Jugador"; qualityValue1.value = "Jugador";
+                    qualityValue2.textContent = "Hincha"; qualityValue2.value = "Hincha";
 
                 } else if (productTypeSelect.value === "shoes") {
 
                     textDescription.textContent = "Modelo";
                     numberDescription.textContent = "Talle";
-                    qualityValue1.textContent = "Césped"; qualityValue1.value = "tapón acero";
-                    qualityValue2.textContent = "Sintético"; qualityValue1.value = "tapón goma";
+                    qualityValue1.textContent = "Césped"; qualityValue1.value = "Céspedo";
+                    qualityValue2.textContent = "Sintético"; qualityValue1.value = "Sintético";
                 }
             });
 
@@ -176,6 +216,10 @@
             })
         }
 
+        /**
+         * Actualiza el producto filtrado desde el front, llamando a la ruta del servidor
+         * @param event evento para evitar el envío del formulario al destino por defecto
+         */
         async function actualizarProducto(event) {
             event.preventDefault();
 

@@ -11,6 +11,11 @@ formCliente.addEventListener("submit", event => {
     sessionStorage.setItem("user", document.getElementById("client-name").value.trim());
 });
 
+document.getElementById("btn-quick-login").addEventListener("click", () => {
+    document.getElementById("admin-email").value = "gonzalo@utn.com";
+    document.getElementById("admin-password").value = "ea";
+});
+
 const formAdmin = document.getElementById("admin-login-form");
 formAdmin.addEventListener("submit", async event => {
    

@@ -70,7 +70,7 @@
                 mostrarProducto(producto);
 
                 let deleteProduct_btn = document.getElementById("delete-product-btn");
-                deleteProduct_btn.addEventListener("click", (event) => {                /*  Flujo Administrador | 11. El administrador elige un producto activo para eliminar. Presiona el botón eliminar de ese producto. */
+                deleteProduct_btn.addEventListener("click", async (event) => {          /*  Flujo Administrador | 11. El administrador elige un producto activo para eliminar. Presiona el botón eliminar de ese producto. */
                     event.stopPropagation();
 
                     let confirmation = confirm("¿Quiere eliminar este producto?");      /*  Flujo Administrador | 12. Se muestra un modal que pregunta si está seguro de eliminar. El administrador presiona el botón confirmar. */
@@ -78,8 +78,8 @@
                     if(!confirmation) {
                         alert("Acción cancelada.");
                     } else {
-                        eliminarProducto(idProd);                                       /*  Flujo Adminsitrador | 13. El producto eliminado pasa a mostrarse en estado inactivo (baja lógica).  */
-                        mostrarProducto(producto);
+                        eliminarProducto(idProd)                                        /*  Flujo Adminsitrador | 13. El producto eliminado pasa a mostrarse en estado inactivo (baja lógica).  */
+                        .then(mostrarProducto(prod));
                     }
                 });
                 
@@ -93,18 +93,26 @@
 
         });
         
+        /**
+         * Muestra los datos del producto filtrado
+         * @param prod el producto filtrado
+         */
         function mostrarProducto(prod) {
             
             let HTMLProducto = `
                     <li class="product-item">
                         <img src="${prod.image}" alt="${prod.nombre}" class="product-img">
                         <p>ID: ${prod.id} / ${prod.product_type} ${prod.quality} ${prod.desc_text} N°${prod.desc_number} / <strong>Precio: $${prod.price}</strong> / ${prod.active ? "[Activo]" : "[Inactivo]"}</p>
-                        <input type="button" class="form-button form-component" id="delete-product-btn" value="Eliminar producto">
+                        <input type="button" class="form-button form-component" id="delete-product-btn" value="Eliminar Producto">
                     </li>
                 `;
             product_list.innerHTML = HTMLProducto;
         }
 
+        /**
+         * Elimina el producto filtrado
+         * @param id identificador del producto filtrado
+         */
         async function eliminarProducto(id) {
 
             try {

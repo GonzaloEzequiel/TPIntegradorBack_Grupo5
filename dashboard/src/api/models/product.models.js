@@ -2,8 +2,8 @@ import connection from "../database/db.js";
 
 
 /**
- * 
- * @returns 
+ * Petición a la base de datos para traer todos los productos activos
+ * @returns respuesta de la bbdd a la petición
  */
 const selectActiveProducts = async () => {
 
@@ -13,8 +13,8 @@ const selectActiveProducts = async () => {
 }
 
 /**
- * 
- * @returns 
+ * Petición a la base de datos para traer todos los productos (activos e inactivos)
+ * @returns respuesta de la bbdd a la petición
  */
 const selectAllProducts = async () => {
 
@@ -24,9 +24,9 @@ const selectAllProducts = async () => {
 }
 
 /**
- * 
- * @param {*} id 
- * @returns 
+ * Petición a la base de datos para traer filtrar un producto por su identificador numérico
+ * @param {*} id identificador numérico unívoco del producto filtrado
+ * @returns respuesta de la bbdd a la petición
  */
 const selectProductById = async (id) => {
 
@@ -36,49 +36,61 @@ const selectProductById = async (id) => {
 }
 
 /**
- * 
- * @param {*} product_type 
- * @param {*} image 
- * @param {*} desc_number 
- * @param {*} desc_text 
- * @param {*} quality 
- * @param {*} price 
- * @returns 
+ * Petición a la base de datos para insertar un nuevo producto
+ * @param {*} product_type tipo del producto
+ * @param {*} image imagen del producto
+ * @param {*} desc_number descripción numérica del producto según tipo (estampa/número calzado)
+ * @param {*} desc_text descripción de texto del producto según tipo (estampa/modelo calzado)
+ * @param {*} quality descripción de la calidad del producto según tipo
+ * @param {*} price precio del producto
+ * @returns respuesta de la bbdd a la petición
  */
 const insertProduct = async (product_type, image, desc_number, desc_text, quality, price) => {
 
-    let sql = `INSERT INTO products (product_type, active, image, desc_number, desc_text, quality, price) VALUES (?, 1, ?, ?, ?, ?, ?);`
+    let sql = `INSERT INTO products (product_type, active, image, desc_number, desc_text, quality, price) VALUES (?, 1, ?, ?, ?, ?, ?);`;
     return await connection.query(sql, [product_type, image, desc_number, desc_text, quality, price]);
 
 }
 
 /**
- * 
- * @param {*} id 
- * @param {*} product_type 
- * @param {*} image 
- * @param {*} desc_number 
- * @param {*} desc_text 
- * @param {*} quality 
- * @param {*} price 
- * @returns 
+ * Petición a la base de datos para modificar un producto existente (previamente filtrado)
+ * @param {*} id identificador numérico unívoco del producto filtrado
+ * @param {*} product_type tipo del producto
+ * @param {*} image imagen del product
+ * @param {*} desc_number descripción numérica del producto según tipo (estampa/número calzado)
+ * @param {*} desc_text descripción de texto del producto según tipo (estampa/modelo calzado)
+ * @param {*} quality descripción de la calidad del producto según tipo
+ * @param {*} price precio del producto
+ * @returns respuesta de la bbdd a la petición
  */
 const updateProduct = async (id, product_type, image, desc_number, desc_text, quality, price) => {
 
-    let sql = `UPDATE products SET product_type = ?, active = 1, image = ?, desc_number = ?, desc_text = ?, quality = ?, price = ? WHERE id = ?;`
+    let sql = `UPDATE products SET product_type = ?, active = 1, image = ?, desc_number = ?, desc_text = ?, quality = ?, price = ? WHERE id = ?;`;
     return await connection.query(sql, [product_type, image, desc_number, desc_text, quality, price, id]);
 
 }
 
 /**
- * 
- * @param {*} id 
- * @returns 
+ * Petición a la base de datos para dar 'alta lógica' a un producto existente (previamente filtrado)
+ * @param {*} id identificador numérico unívoco del producto filtrado
+ * @returns respuesta de la bbdd a la petición
+ */
+const activateProduct = async (id) => {
+
+    let sql = `UPDATE products SET active = 1 WHERE id = ?;`;
+    return await connection.query(sql, [id]);
+
+}
+
+/**
+ * Petición a la base de datos para dar baja lógica a un producto existente (previamente filtrado)
+ * @param {*} id identificador numérico unívoco del producto filtrado
+ * @returns respuesta de la bbdd a la petición
  */
 const deleteProduct = async (id) => {
 
     //let sql = `DELETE from products WHERE id = ?;`
-    let sql = `UPDATE products SET active = 0 WHERE id = ?`;    // BAJA LÓGICA
+    let sql = `UPDATE products SET active = 0 WHERE id = ?;`;    // BAJA LÓGICA
     return await connection.query(sql, [id]);
 
 }
@@ -92,6 +104,7 @@ export default {
     selectProductById,
     insertProduct,
     updateProduct,
+    activateProduct,
     deleteProduct
 
 }

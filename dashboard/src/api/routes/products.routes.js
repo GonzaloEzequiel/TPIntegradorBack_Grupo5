@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { validateId } from "../middlewares/middlewares.js";
-import { getActiveProducts, getAllProducts, getProductById, newProduct, editProduct, removeProduct } from "../controllers/product.controllers.js";
+import { getActiveProducts, getProductById, newProduct, editProduct, reactivateProduct, removeProduct } from "../controllers/product.controllers.js";
 
 const router = Router();
 
@@ -20,6 +20,10 @@ router.post("/", newProduct);
 
 // PUT modificar un producto
 router.put("/:id", editProduct);
+
+
+// PUT modificar un producto
+router.patch("/:id", reactivateProduct);
 
 
 // DELETE eliminar producto

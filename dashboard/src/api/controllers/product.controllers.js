@@ -2,9 +2,9 @@ import Products from "../models/product.models.js";
 
 
 /**
- * 
- * @param {*} request 
- * @param {*} response 
+ * Se encarga de invocar al modelo para consultar los productos activos y manejar la respuesta de la bbdd
+ * @param {*} request solicitud de la ruta (sin datos como parámetro)
+ * @param {*} response respuesta a la ruta con la resolución de la operación
  */
 export const getActiveProducts = async (request, response) => {
 
@@ -30,9 +30,9 @@ export const getActiveProducts = async (request, response) => {
 }
 
 /**
- * 
- * @param {*} request 
- * @param {*} response 
+ * Se encarga de invocar al modelo para consultar todos los productos y manejar la respuesta de la bbdd
+ * @param {*} request solicitud de la ruta (sin datos como parámetro)
+ * @param {*} response respuesta a la ruta con la resolución de la operación
  */
 export const getAllProducts = async (request, response) => {
 
@@ -58,9 +58,9 @@ export const getAllProducts = async (request, response) => {
 }
 
 /**
- * 
- * @param {*} request 
- * @param {*} response 
+ * Se encarga de invocar al modelo para consultar un producto en específico
+ * @param {*} request solicitud de la ruta con el identificador del producto
+ * @param {*} response respuesta a la ruta con la resolución de la operación
  */
 export const getProductById = async (request, response) => {
 
@@ -88,10 +88,10 @@ export const getProductById = async (request, response) => {
 }
 
 /**
- * 
- * @param {*} request 
- * @param {*} response 
- * @returns 
+ * Se encarga de invocar al modelo para crear un producto nuevo
+ * @param {*} request solicitud de la ruta con los datos del producto
+ * @param {*} response respuesta a la ruta con la resolución de la operación
+ * @returns respuesta de la operación a la petición
  */
 export const newProduct = async (request, response) => {
 
@@ -125,10 +125,10 @@ export const newProduct = async (request, response) => {
 }
 
 /**
- * 
- * @param {*} request 
- * @param {*} response 
- * @returns 
+ * Se encarga de invocar al modelo para modificar un producto en específico
+ * @param {*} request solicitud de la ruta con los datos del producto
+ * @param {*} response respuesta a la ruta con la resolución de la operación
+ * @returns respuesta de la operación a la petición
  */
 export const editProduct = async (request, response) => {
     
@@ -163,10 +163,56 @@ export const editProduct = async (request, response) => {
 }
 
 /**
- * 
- * @param {*} request 
- * @param {*} response 
- * @returns 
+ * Se encarga de invocar al modelo para "activar" un producto en específico
+ * @param {*} request solicitud de la ruta con el identificador del producto
+ * @param {*} response respuesta a la ruta con la resolución de la operación
+ */
+export const reactivateProduct = async (request, response) => {
+
+    try {
+
+        let { id } = request.params;
+
+        if(!id) {
+            return response.status(400).json({
+                message: "Se requiere un id para eliminar un producto."
+            })
+        }
+
+        let [result] = await Products.activateProduct(id);
+
+        console.log("Res:", result);
+
+        if(result.affectedRows === 0) {
+            return response.status(404).json({
+                message: `No se encontró un producto con id ${id}.`
+            })
+        }
+
+        return response.status(200).json({
+            message: `Producto con id ${id} activado correctamente.`
+        })
+
+    } catch (error) {
+
+        console.error("Error en PATCH /products/:id");
+
+        console.log(error);
+
+        response.status(500).json({
+            message: `Error al intentar activar el producto con id: ${id}.`,
+            error: error.message
+        })
+
+    }
+
+}
+
+/**
+ * Se encarga de invocar al modelo para dar de baja a un producto en específico
+ * @param {*} request solicitud de la ruta con el identificador del producto
+ * @param {*} response respuesta a la ruta con la resolución de la operación
+ * @returns respuesta de la operación a la petición
  */
 export const removeProduct = async (request, response) => {
 
@@ -174,13 +220,11 @@ export const removeProduct = async (request, response) => {
 
         let { id } = request.params;
 
-        console.log("Id:", id);
-
         if(!id) {
             return response.status(400).json({
                 message: "Se requiere un id para eliminar un producto."
             })
-        }        
+        }
 
         let [result] = await Products.deleteProduct(id);
 
