@@ -13,7 +13,7 @@ formCliente.addEventListener("submit", event => {
 
 document.getElementById("btn-quick-login").addEventListener("click", () => {
     document.getElementById("admin-email").value = "gonzalo@utn.com";
-    document.getElementById("admin-password").value = "ea";
+    document.getElementById("admin-password").value = "0h8vNufy";
 });
 
 const formAdmin = document.getElementById("admin-login-form");
