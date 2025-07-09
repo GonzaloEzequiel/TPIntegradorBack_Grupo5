@@ -42,7 +42,6 @@ header {
     padding: 0 1rem;
     background-color: var(--color-header);
     position: relative;
-    /* height: 130px; */
     width: 100%;
 }
 
@@ -222,7 +221,7 @@ hr {
 
 .form-button {
     background-color: var(--color-header);
-    color: white;
+    color: var(--color-fondo);
     border: none;
     font-weight: bold;
     cursor: pointer;
@@ -235,6 +234,9 @@ hr {
 
 #get-container {
     margin: 0;
+}
+#sales-container {
+    width: auto;
 }
 
 .product-item {
@@ -255,12 +257,33 @@ hr {
     margin-right: 15px;
 }
 
+#sales-list {
+    width: 500px;
+    padding: 25px;
+}
+thead {    
+    color: var(--color-texto2);
+    background-color: var(--color-header);
+    opacity: 0.8;
+}
+th {
+    border-radius: 5px;
+    padding: 0 10px;
+    width: 100px;
+    border-spacing: 50px 0;
+    border-collapse: separate;
+}
+td {
+    height: 50px;
+    text-align: center;
+}
+
 /* ELEMENTOS DEL FOOTER */
 footer {
     background-color: var(--color-header);
     padding: 1rem;
     text-align: center;
-    color: white;
+    color: var(--color-fondo);
     margin-top: auto;
 }
 
@@ -277,7 +300,7 @@ footer {
     }
 
     header {
-        height: 150px;
+        height: 200px;
     }
     
     #logo-container {

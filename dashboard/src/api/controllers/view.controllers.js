@@ -1,4 +1,5 @@
 import Products from "../models/product.models.js";
+import Sales from "../models/sales.models.js";
 
 
 /**
@@ -68,4 +69,49 @@ export const removeProductView = async (request, response) => {
         about: "Elmimnar Producto",
         script: "removeProduct.js"
     })
+}
+
+/**
+ * Muestra la vista 'crear administrador' con las variables necesarias
+ * @param {*} request solicitud de la ruta (sin datos como parámetro)
+ * @param {*} response respuesta a la ruta con el renderizado de la vista
+ */
+export const newAdminView = async (request, response) => {
+
+    response.render("newAdmin", {
+        title: "Fulbo$hop | Administrador",
+        about: "Crear Nuevo Administrador",
+        script: "admin.js"
+    })
+
+}
+
+/**
+ * Muestra la vista 'ventas' con las variables necesarias
+ * @param {*} request solicitud de la ruta (sin datos como parámetro)
+ * @param {*} response respuesta a la ruta con el renderizado de la vista
+ */
+export const getSalesView = async (request, response) => {
+
+    try {
+
+        const result = await Sales.selectAllTickets();
+        response.render("sales", {
+
+            title: "Fulbo$hop | Ventas",
+            about: "Listado de Ventas",
+            script: "sales.js",
+            sales: result[0]
+
+        })
+
+    } catch (error) {
+
+        console.error("Error obteniendo la información", error.message);
+        response.status(500).json({
+            error: "Error interno al obtener la información"
+        });
+
+    }    
+
 }

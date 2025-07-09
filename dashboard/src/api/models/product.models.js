@@ -13,6 +13,28 @@ const selectActiveProducts = async () => {
 }
 
 /**
+ * Petición a la base de datos para traer todos los productos del tipo Camiseta activos
+ * @returns respuesta de la bbdd a la petición
+ */
+const selectActiveShirts = async () => {
+
+    let sql = `SELECT * FORM products WHERE product_type = 'Camiseta' AND active = 1`
+    return await connection.query(sql);
+}
+
+/**
+ * Petición a la base de datos para traer todos los productos del tipo Botines activos
+ * @returns respuesta de la bbdd a la petición
+ */
+const selectActiveShoes = async () => {
+
+    let sql = `SELECT * FORM products WHERE product_type = 'Botines' AND active = 1`
+    return await connection.query(sql);
+}
+
+
+
+/**
  * Petición a la base de datos para traer todos los productos (activos e inactivos)
  * @returns respuesta de la bbdd a la petición
  */
@@ -22,6 +44,29 @@ const selectAllProducts = async () => {
     return await connection.query(sql);
 
 }
+
+/**
+ * Petición a la base de datos para traer todas los productos del tipo Camiseta
+ * @returns respuesta de la bbdd a la petición
+ */
+const selectAllShirts = async () => {
+
+    let sql = `SELECT * FROM products WHERE product_type = 'Camiseta'`;
+    return await connection.query(sql);
+
+}
+
+/**
+ * Petición a la base de datos para traer todas los productos del tipo Botines
+ * @returns respuesta de la bbdd a la petición
+ */
+const selectAllShoes = async () => {
+
+    let sql = `SELECT * FROM products WHERE product_type = 'Botines'`;
+    return await connection.query(sql);
+
+}
+
 
 /**
  * Petición a la base de datos para traer filtrar un producto por su identificador numérico
@@ -99,8 +144,12 @@ const deleteProduct = async (id) => {
 
 export default {
 
-    selectAllProducts,
     selectActiveProducts,
+    selectActiveShirts,
+    selectActiveShoes,
+    selectAllProducts,
+    selectAllShirts,
+    selectAllShoes,
     selectProductById,
     insertProduct,
     updateProduct,

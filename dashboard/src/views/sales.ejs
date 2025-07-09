@@ -1,0 +1,49 @@
+<%- include("partials/head.ejs") %>
+<%- include("partials/header.ejs") %>
+
+    <hr>
+        <h1 class="page-title"><%= about %></h1>
+    <hr>
+
+    <main id="get-container">
+
+        <div id="sales-container" class="form-container">     
+            
+            <% if(sales.length > 0) { %> 
+
+                <table id="sales-list">
+
+                    <thead>
+                        <th>N° Ticket</th>
+                        <th>Cliente</th>
+                        <th>Fecha</th>
+                        <th>Total</th>
+                        <th>Detalle</th>
+                    </thead>
+
+                    <% sales.forEach(ticket => { %>
+
+                        <tr>
+                            <td><%= ticket.id %></td>
+                            <td><%= ticket.client %></td>
+                            <td><%= ticket.date %></td>
+                            <td>$<%= ticket.total %></td>
+                            <td><button class="table-button">Ver</button></td>
+                        </tr>
+
+                    <% }) %>
+
+                </table>
+
+            <% } else { %>
+
+                <p>Sin ventas al momento</p>
+
+            <% } %>
+
+            </div>
+
+
+    </main>
+
+<%- include("partials/footer.ejs") %>

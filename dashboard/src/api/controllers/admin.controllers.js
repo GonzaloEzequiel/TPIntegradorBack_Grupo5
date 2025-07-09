@@ -11,7 +11,7 @@ export const newAdmin = async (request, response) => {
 
     try {
 
-        let { name, email, password } = request.body;
+        let { ["admin-name"]:name, ["admin-email"]:email, ["admin-pass1"]:password } = request.body;
 
         if(!name || !email || !password) {
 

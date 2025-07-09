@@ -19,15 +19,73 @@ export const getActiveProducts = async (request, response) => {
 
     } catch (error) {
 
-        console.log("Error obteniendo productos ", error);
+        console.log("Error obteniendo productos: ", error);
 
         response.status(500).json({
-            error: "Error interno del servidor al obtener productos"
+            error: "Error interno del servidor al obtener productos."
         });
         
     }
     
 }
+
+/**
+ * Se encarga de invocar al modelo para consultar los productos activos del tipo Camiseta y manejar la respuesta de la bbdd
+ * @param {*} request solicitud de la ruta (sin datos como parámetro)
+ * @param {*} response respuesta a la ruta con la resolución de la operación
+ */
+export const getAcitveShirts = async (request, response) => {
+
+    try {
+
+        let [rows] = await Products.selectActiveShirts();
+
+        response.status(200).json({
+            payload: rows,
+            message: rows.length === 0 ? "No se encontraron Camisetas activas" : "Camisetas activas encontradas"
+        });
+
+    } catch (error) {
+
+        console.log("Error obteniendo camisetas activas: ", error);
+
+        response.status(500).json({
+            error: "Error interno del servidor al obtener camisetas activas."
+        });
+
+    }
+
+}
+
+/**
+ * Se encarga de invocar al modelo para consultar los productos activos del tipo Botines y manejar la respuesta de la bbdd
+ * @param {*} request solicitud de la ruta (sin datos como parámetro)
+ * @param {*} response respuesta a la ruta con la resolución de la operación
+ */
+export const getAcitveShoes = async (request, response) => {
+
+    try {
+
+        let [rows] = await Products.selectActiveShoes();
+
+        response.status(200).json({
+            payload: rows,
+            message: rows.length === 0 ? "No se encontraron Botines activos" : "Botines activos encontradas"
+        });
+
+    } catch (error) {
+
+        console.log("Error obteniendo botines activas: ", error);
+
+        response.status(500).json({
+            error: "Error interno del servidor al obtener botines activos."
+        });
+
+    }
+
+}
+
+
 
 /**
  * Se encarga de invocar al modelo para consultar todos los productos y manejar la respuesta de la bbdd
@@ -56,6 +114,64 @@ export const getAllProducts = async (request, response) => {
     }
     
 }
+
+/**
+ * Se encarga de invocar al modelo para consultar todos los productos del tipo Camiseta y manejar la respuesta de la bbdd
+ * @param {*} request solicitud de la ruta (sin datos como parámetro)
+ * @param {*} response respuesta a la ruta con la resolución de la operación
+ */
+export const getAllShirts = async (request, response) => {
+
+    try {
+
+        let [rows] = await Products.selectAllShirts();
+
+        response.status(200).json( {
+            payload: rows,
+            message: rows.length === 0 ? "No se encontraron Camisetas" : "Camisetas encontradas"
+        });
+
+    } catch (error) {
+
+        console.log("Error obteniendo productos ", error);
+
+        response.status(500).json({
+            error: "Error interno del servidor al obtener camisetas."
+        });
+
+    }
+
+}
+
+/**
+ * Se encarga de invocar al modelo para consultar todos los productos del tipo Botines y manejar la respuesta de la bbdd
+ * @param {*} request solicitud de la ruta (sin datos como parámetro)
+ * @param {*} response respuesta a la ruta con la resolución de la operación
+ */
+export const getAllShoes = async (request, response) => {
+
+    try {
+
+        let [rows] = await Products.selectAllShoes();
+
+        response.status(200).json( {
+            payload: rows,
+            message: rows.length === 0 ? "No se encontraron Botines" : "Botines encontrados"
+        });
+
+    } catch (error) {
+
+        console.log("Error obteniendo productos ", error);
+
+        response.status(500).json({
+            error: "Error interno del servidor al obtener botines."
+        });
+
+    }
+
+}
+
+
 
 /**
  * Se encarga de invocar al modelo para consultar un producto en específico

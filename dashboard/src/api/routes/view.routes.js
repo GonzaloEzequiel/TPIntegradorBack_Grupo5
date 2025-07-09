@@ -1,7 +1,9 @@
 import { Router } from "express";
-import { getProductsView, newProductView, editProductView, removeProductView } from "../controllers/view.controllers.js";
+import { getProductsView, newProductView, editProductView, removeProductView, newAdminView, getSalesView } from "../controllers/view.controllers.js";
 
 const router = Router();
+
+
 
 // GET vista productos
 router.get("/", getProductsView);                   
@@ -14,6 +16,13 @@ router.get("/editProduct", editProductView);
 
 // GET vista eliminar producto
 router.get("/removeProduct", removeProductView);
+
+// GET vista eliminar producto
+router.get("/newAdmin", newAdminView);
+
+// GET vista ventas
+router.get("/sales", getSalesView);
+
 
 
 

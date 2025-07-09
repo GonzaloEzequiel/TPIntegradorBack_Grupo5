@@ -6,19 +6,10 @@
     <link rel="stylesheet" href="/css/styles.css">
     <link rel="icon" href="/img/favicon.ico" type="image/x-icon">
 
-    <!-- <% if (script) { %>
-        <script src="/js/<%= script %>" defer></script>
-    <% } %> -->
+    <% if (script) { %>
+        <script type="module" src="/js/<%= script %>" defer></script>
+    <% } %>
 
     <title><%= title %></title>
 </head>
 <body>
-<script>
-
-    // sessionStorage.setItem("user", "admin");
-
-    // if(!sessionStorage.getItem("user")) {
-    //     window.location.href = `http://localhost:5500/frontend/home.html`;
-    // }    
-
-</script>

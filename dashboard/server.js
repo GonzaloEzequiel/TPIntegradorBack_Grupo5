@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 import environments from "./src/api/config/environments.js";
-import { porductRoutes, adminRoutes, viewRoutes } from "./src/api/routes/index.js";
+import { porductRoutes, adminRoutes, viewRoutes, salesRoutes } from "./src/api/routes/index.js";
 import { loggerUrl } from "./src/api/middlewares/middlewares.js";
 import { __dirname, join } from "./src/api/utils/index.js";
 
@@ -16,13 +16,14 @@ app.use(express.static(join(__dirname, "/src/public")));
 app.use(express.json());
 app.use(cors());
 app.use(loggerUrl);
-app.use("/js", express.static(join(__dirname, "/src/dashboard-js")));
 
 
 
 app.use("/api/products", porductRoutes);
 app.use("/api/admin", adminRoutes);
+app.use("/api/sales", salesRoutes);
 app.use("/dashboard", viewRoutes);
+
 
 
 app.get("/", (req, res) => {
