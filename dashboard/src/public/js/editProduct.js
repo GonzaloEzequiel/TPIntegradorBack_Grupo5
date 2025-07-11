@@ -20,25 +20,22 @@ get_product_form.addEventListener("submit", async (event) => {
 
         let idProd = data["product-id"].trim();
 
-        if(!idProd) {
+        if(!idProd)
             throw new Error(`Error en el envio de datos del formulario.`);
-        }
 
         let response = await fetch(`${baseUrl}/products/${idProd}`);
 
         console.log(response);
         
-        if(!response.ok) {
+        if(!response.ok)
             throw new Error(`Error ${response.status}: ${response.statusText}`);
-        }
 
         let datos = await response.json();
 
         console.log(datos);
 
-        if(!datos.payload || datos.payload.length === 0) {
-            throw new Error("No se encontro el producto solicitado.")
-        }
+        if(!datos.payload || datos.payload.length === 0)
+            throw new Error("No se encontro el producto solicitado.");
         
         let producto = datos.payload[0];
 
@@ -150,8 +147,7 @@ function formularioPutProducto(event, product) {
 
     edit_product_container.setAttribute("class", "form-container");
     edit_product_container.innerHTML = updateProduct;
-
-    let qualitySelect = document.getElementById("quality-select");
+  
     let qualityValue1 = document.getElementById("qualityValue1");
     let qualityValue2 = document.getElementById("qualityValue2");
     let textDescription = document.getElementById("text-desc-label");
@@ -159,14 +155,14 @@ function formularioPutProducto(event, product) {
     
     let productTypeSelect = document.getElementById("product-type-select");
     productTypeSelect.addEventListener("change", () => {
-        if(productTypeSelect.value === "shirt") {
+        if(productTypeSelect.value === "Camiseta") {
 
             textDescription.textContent = "Estampa";
             numberDescription.textContent = "Nro. Camiseta";
             qualityValue1.textContent = "Jugador"; qualityValue1.value = "Jugador";
             qualityValue2.textContent = "Hincha"; qualityValue2.value = "Hincha";
 
-        } else if (productTypeSelect.value === "shoes") {
+        } else if (productTypeSelect.value === "Botines") {
 
             textDescription.textContent = "Modelo";
             numberDescription.textContent = "Talle";
