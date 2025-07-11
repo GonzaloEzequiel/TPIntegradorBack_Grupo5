@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 11-07-2025 a las 07:51:47
+-- Tiempo de generación: 11-07-2025 a las 18:52:16
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -40,7 +40,8 @@ CREATE TABLE `admins` (
 
 INSERT INTO `admins` (`id`, `name`, `email`, `password`) VALUES
 (1, 'Gonzalo', 'gonzalo@utn.com', '0h8vNufy'),
-(2, 'Ignacio', 'ignacio@utn.com', '12345678');
+(2, 'Ignacio', 'ignacio@utn.com', '12345678'),
+(3, 'Javier', 'Javier@utn.com', 'gallardo123');
 
 -- --------------------------------------------------------
 
@@ -75,7 +76,15 @@ INSERT INTO `products` (`id`, `product_type`, `active`, `image`, `desc_number`, 
 (9, 'Camiseta', 1, 'https://www.aisope.com.ar/images/ACQM/SAH4104.jpg', 30, 'Mastantuono', 'Jugador', 70000),
 (10, 'Camiseta', 1, 'https://static1.cdn-subsidesports.com/2/media/catalog/product/cache/38d4094f49a5c2931b615f53f1250097/d/f/dfa49e8e21e1bf36973f0c3ca43eab4945f165d549e17e4b5a38174f708145ac.jpeg', 3, 'Piqué', 'Hincha', 45000),
 (11, 'Botines', 1, 'https://factorydeportivoar.vteximg.com.br/arquivos/ids/196655-700-700/02025735380_0.jpg', 44, 'Topper Titanium', 'Sintético', 78500),
-(12, 'Botines', 0, 'https://tiendapodium.com.ar/wp-content/uploads/2023/05/K-K1321J6UWKROO-Botines-De-Futbol-Kappa-Legend-11-Hombre-Rojo-Blanco.jpg', 40, 'Kappa Legend', 'Sintético', 125000);
+(12, 'Botines', 0, 'https://tiendapodium.com.ar/wp-content/uploads/2023/05/K-K1321J6UWKROO-Botines-De-Futbol-Kappa-Legend-11-Hombre-Rojo-Blanco.jpg', 40, 'Kappa Legend', 'Sintético', 125000),
+(13, 'Botines', 1, 'https://umbroar.vtexassets.com/arquivos/ids/2425328/U01FB00096_180_00.jpg', 41, 'Umbro Velocita', 'Sintético', 79900),
+(14, 'Botines', 1, 'https://diadoraargentina.com/cdn/shop/products/5.jpg', 38, 'Diadora Classic', 'Sintético', 65000),
+(15, 'Camiseta', 1, 'https://acdn-us.mitiendanube.com/stores/001/312/744/products/wat3wy4e5rsdtfyg1-40b8197a7a1595b5ec16848556363514-640-0.png', 10, 'Roman', 'Jugador', 160000),
+(16, 'Camiseta', 1, 'https://i.ibb.co/TBnDykSf/image.png', 10, 'Neymar Jr', 'Jugador', 180000),
+(17, 'Camiseta', 1, 'https://i.ibb.co/Sw1PY5t1/image.png', 11, 'Ibrahimovic', 'Hincha', 85000),
+(18, 'Botines', 1, 'https://nikearprod.vtexassets.com/arquivos/ids/1183984/FQ1456_700_A_1_PREM.jpg', 38, 'Nike Mercurial', 'Sintético', 139999),
+(19, 'Botines', 1, 'https://i.ibb.co/Fbdnm2yn/image.png', 40, 'Adidas Speedportal', 'Sintético', 75000),
+(20, 'Botines', 1, 'https://templofutbol.vtexassets.com/arquivos/ids/20352076/10868003-A.jpg', 38, 'Puma Ultra5', 'Sintético', 104999);
 
 -- --------------------------------------------------------
 
@@ -108,7 +117,9 @@ INSERT INTO `sales` (`id`, `id_ticket`, `id_product`, `quantity`, `subtotal`) VA
 (10, 6, 6, 1, 95000),
 (11, 6, 8, 1, 60000),
 (12, 7, 5, 1, 70000),
-(13, 7, 2, 1, 50000);
+(13, 7, 2, 1, 50000),
+(14, 8, 6, 1, 95000),
+(15, 8, 8, 1, 60000);
 
 -- --------------------------------------------------------
 
@@ -134,7 +145,8 @@ INSERT INTO `tickets` (`id`, `client`, `date`, `total`) VALUES
 (4, 'Shakira', '2022-06-04 10:45:55', 213500),
 (5, 'Carlos el topo que gira', '2025-07-11 02:47:47', 300000),
 (6, 'Rafa de Domínico', '2025-07-11 02:50:10', 155000),
-(7, 'Mario Pergolini', '2025-07-11 02:51:14', 120000);
+(7, 'Mario Pergolini', '2025-07-11 02:51:14', 120000),
+(8, 'Thor el dios del trueno', '2025-07-11 13:01:45', 155000);
 
 --
 -- Índices para tablas volcadas
@@ -174,25 +186,25 @@ ALTER TABLE `tickets`
 -- AUTO_INCREMENT de la tabla `admins`
 --
 ALTER TABLE `admins`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT de la tabla `sales`
 --
 ALTER TABLE `sales`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT de la tabla `tickets`
 --
 ALTER TABLE `tickets`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- Restricciones para tablas volcadas

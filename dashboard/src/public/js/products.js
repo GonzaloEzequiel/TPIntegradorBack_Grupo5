@@ -65,7 +65,7 @@ function aplicarFiltros() {
 
     const titulo = document.querySelector(".page-title");
 
-    titulo.textContent = ategoria === "botines" ? "Botines" : categoria === "camiseta" ? "Camisetas" : "Galería de Productos";
+    titulo.textContent = categoria === "botines" ? "Botines" : categoria === "camiseta" ? "Camisetas" : "Galería de Productos";
 
     document.querySelectorAll(".product-item").forEach(item => {
 
