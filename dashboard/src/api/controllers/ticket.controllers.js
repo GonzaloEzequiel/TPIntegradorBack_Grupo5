@@ -20,7 +20,7 @@ export const newTicket = async (request, response) => {
 
         }
 
-        let [rows] = await Tickets.insertTicket(client, new Date().toLocaleString('en-US', {timeZone: 'America/Argentina/Buenos_Aires'}), total);
+        let [rows] = await Tickets.insertTicket(client, new Date(new Date().toLocaleString('en-US', {timeZone: 'America/Argentina/Buenos_Aires'})), total);
 
         response.status(201).json({
             message: "Ticket creado",
