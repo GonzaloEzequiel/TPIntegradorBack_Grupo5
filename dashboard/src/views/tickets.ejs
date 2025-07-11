@@ -1,0 +1,65 @@
+<%- include("partials/head.ejs") %>
+<%- include("partials/header.ejs") %>
+
+    <hr>
+        <h1 class="page-title"><%= about %></h1>
+    <hr>
+
+    <main id="get-container">
+
+        <div id="tickets-container" class="form-container">     
+            
+            <% if(tickets.length > 0) { %> 
+
+                <table id="tickets-list">
+
+                    <thead>
+                        <th>N° Ticket</th>
+                        <th>Cliente</th>
+                        <th>Fecha</th>
+                        <th>Total</th>
+                        <th>Detalle</th>
+                    </thead>
+
+                    <% tickets.forEach(ticket => { %>
+
+                        <tr>
+                            <td><%= ticket.id %></td>
+                            <td><%= ticket.client %></td>
+                            <td><%= new Date(ticket.date).toLocaleString('es-AR', {
+                                    timeZone: 'America/Argentina/Buenos_Aires',
+                                    day: '2-digit',
+                                    month: '2-digit',
+                                    year: 'numeric',
+                                    hour: '2-digit',
+                                    minute: '2-digit',
+                                    hour12: false
+                                    }).replace(',', '') %></td>
+                            <td>$<%= ticket.total %></td>
+                            <td><button class="ticket-detail-btn" data-id="<%= ticket.id %>">Ver</button></td>
+                        </tr>
+
+                    <% }) %>
+
+                </table>
+
+            <% } else { %>
+
+                <p>Sin ventas al momento</p>
+
+            <% } %>
+
+            </div>
+
+            <div id="ticket-modal" class="modal hidden">
+                <div class="modal-content">
+                    <span id="close-modal">&times;</span>
+                    <div id="modal-body">
+                    </div>
+                </div>
+            </div>
+
+
+    </main>
+
+<%- include("partials/footer.ejs") %>

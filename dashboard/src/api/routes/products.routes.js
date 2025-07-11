@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { validateId } from "../middlewares/middlewares.js";
-import { getActiveProducts, getProductById, newProduct, editProduct, reactivateProduct, removeProduct, getAcitveShirts, getAcitveShoes, getAllShirts, getAllShoes } from "../controllers/product.controllers.js";
+import { getActiveProducts, getProductById, newProduct, editProduct, reactivateProduct, removeProduct } from "../controllers/product.controllers.js";
 
 const router = Router();
 
@@ -8,22 +8,6 @@ const router = Router();
 
 // GET todos los productos ACTIVOS
 router.get("/", getActiveProducts);
-
-
-// GET todos los productos activos del tipo Camiseta
-router.get("/shirts", getAcitveShirts);
-
-
-// GET todos los productos activos del tipo Botines
-router.get("/shoes", getAcitveShoes);
-
-
-// GET todos los productos activos del tipo Camiseta
-router.get("/allShirts", getAllShirts);
-
-
-// GET todos los productos activos del tipo Botines
-router.get("/allShoes", getAllShoes);
 
 
 // GET un producto por su ID

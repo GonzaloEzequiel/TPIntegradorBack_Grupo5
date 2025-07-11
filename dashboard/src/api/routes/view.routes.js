@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getProductsView, newProductView, editProductView, removeProductView, newAdminView, getSalesView } from "../controllers/view.controllers.js";
+import { getProductsView, newProductView, editProductView, removeProductView, newAdminView, getTicketsView } from "../controllers/view.controllers.js";
 
 const router = Router();
 
@@ -21,7 +21,7 @@ router.get("/removeProduct", removeProductView);
 router.get("/newAdmin", newAdminView);
 
 // GET vista ventas
-router.get("/sales", getSalesView);
+router.get("/tickets", getTicketsView);
 
 
 

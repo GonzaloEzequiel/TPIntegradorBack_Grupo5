@@ -8,11 +8,29 @@
     <main id="get-container">
         <div id="products-container">
 
+            <section id="buscador">
+                <label for="search-input">Buscar producto:</label>
+                <input type="text" id="search-input" placeholder="Ej: Messi, Nike..." />
+            </section>
+
+            <section id="filtros">
+                <label for="categoria">Filtrar por tipo:</label>
+                <select id="categoria">
+                    <option value="">Todos</option>
+                    <option value="camiseta">Camisetas</option>
+                    <option value="botines">Botines</option>
+                </select>
+            </section>
+
             <ul id="products-list">
 
                 <% products.forEach(prod => { %>
 
-                    <li class="product-item">
+                    <li class="product-item"
+
+                            data-type="<%= prod.product_type.toLowerCase() %>"
+                            data-name="<%= prod.desc_text.toLowerCase() %>">
+
                             <img src="<%= prod.image %> " alt="<%= prod.name %>" class="product-img">
                             <p>ID: <%= prod.id %> / <%= prod.product_type %> <%= prod.quality %> <%= prod.desc_text %> N°<%= prod.desc_number %> / <strong>Precio: $<%= prod.price %></strong><%= prod.active ? " / [Activo]" : " / [Inactivo]" %></p>
 

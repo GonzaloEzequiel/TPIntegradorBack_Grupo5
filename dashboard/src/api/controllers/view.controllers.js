@@ -1,5 +1,5 @@
 import Products from "../models/product.models.js";
-import Sales from "../models/sales.models.js";
+import Tickets from "../models/ticket.models.js";
 
 
 /**
@@ -91,17 +91,17 @@ export const newAdminView = async (request, response) => {
  * @param {*} request solicitud de la ruta (sin datos como parámetro)
  * @param {*} response respuesta a la ruta con el renderizado de la vista
  */
-export const getSalesView = async (request, response) => {
+export const getTicketsView = async (request, response) => {
 
     try {
 
-        const result = await Sales.selectAllTickets();
-        response.render("sales", {
+        const result = await Tickets.selectAllTickets();
+        response.render("tickets", {
 
             title: "Fulbo$hop | Ventas",
             about: "Listado de Ventas",
-            script: "sales.js",
-            sales: result[0]
+            script: "tickets.js",
+            tickets: result[0]
 
         })
 

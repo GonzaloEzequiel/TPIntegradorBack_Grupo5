@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 import environments from "./src/api/config/environments.js";
-import { porductRoutes, adminRoutes, viewRoutes, salesRoutes } from "./src/api/routes/index.js";
+import { porductRoutes, adminRoutes, viewRoutes, ticketRoutes } from "./src/api/routes/index.js";
 import { loggerUrl } from "./src/api/middlewares/middlewares.js";
 import { __dirname, join } from "./src/api/utils/index.js";
 
@@ -21,7 +21,7 @@ app.use(loggerUrl);
 
 app.use("/api/products", porductRoutes);
 app.use("/api/admin", adminRoutes);
-app.use("/api/sales", salesRoutes);
+app.use("/api/ticket", ticketRoutes);
 app.use("/dashboard", viewRoutes);
 
 

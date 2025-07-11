@@ -1,35 +1,73 @@
 const baseUrl = "http://localhost:3000/api";
 
-let btnsActivar = document.querySelectorAll(".activate-product-btn")
-
-btnsActivar.forEach( btn => {
-
-    btn.addEventListener("click", async () => {
-        const idProd = event.target.getAttribute("data-id");
-        console.log("ID del producto a activar:", idProd);
-
-        const confirmation = confirm("¿Quiere activar este producto?");
-
-        if(!confirmation) {
-            alert("Acción cancelada.");
-
-        } else {
-
-            let response = await fetch(`${baseUrl}/products/${idProd}`, { 
-                method: "PATCH"
-            });
-            
-            let result = await response.json();
-
-            if(response.ok) {
-                alert(result.message);
-                window.location.href = `http://localhost:3000/dashboard`;
-                return true;
-            } else {
-                console.error("Error: ", result.message);
-                return false;
-            }
-        }
-    });
-
+document.addEventListener("DOMContentLoaded", () => {
+    configurarActivadores();
+    configurarFiltros();
+    configurarBuscador();
 });
+
+function configurarActivadores() {
+  document.querySelectorAll(".activate-product-btn").forEach(btn => {
+    btn.addEventListener("click", async event => {
+      const idProd = event.target.getAttribute("data-id");
+      const confirmacion = confirm("¿Quiere activar este producto?");
+      if (!confirmacion) return;
+
+      try {
+        const res = await fetch(`${baseUrl}/products/${idProd}`, { method: "PATCH" });
+        const result = await res.json();
+
+        if (res.ok) {
+          alert(result.message || "Producto activado");
+          window.location.reload();
+        } else {
+          alert(result.message || "No se pudo activar el producto");
+        }
+      } catch (error) {
+        console.error("Error:", error);
+        alert("Ocurrió un error al activar el producto");
+      }
+    });
+  });
+}
+
+function configurarFiltros() {
+  const categoria = document.getElementById("categoria");
+  if (categoria) {
+    categoria.addEventListener("change", aplicarFiltros);
+  }
+}
+
+function configurarBuscador() {
+  const buscador = document.getElementById("search-input");
+  if (buscador) {
+    buscador.addEventListener("input", aplicarFiltros);
+  }
+}
+
+function aplicarFiltros() {
+
+  const categoria = document.getElementById("categoria")?.value.toLowerCase() || "";
+  const termino = document.getElementById("search-input")?.value.toLowerCase() || "";
+
+  const titulo = document.querySelector(".page-title");
+
+  if (categoria === "botines") {
+    titulo.textContent = "Botines";
+  } else if (categoria === "camiseta") {
+    titulo.textContent = "Camisetas";
+  } else {
+    titulo.textContent = "Galería de Productos";
+  }
+
+  document.querySelectorAll(".product-item").forEach(item => {
+
+    const tipo = item.getAttribute("data-type");
+    const nombre = item.getAttribute("data-name");
+
+    const coincideTipo = categoria ? tipo.includes(categoria) : true;
+    const coincideNombre = termino ? nombre.includes(termino) : true;
+
+    item.style.display = coincideTipo && coincideNombre ? "flex" : "none";
+  });
+}
